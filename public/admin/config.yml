@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: Noxie-dev/SA_Is_A_Movie # Path to your GitHub repo
+  name: git-gateway
   branch: main # Branch to update (optional; defaults to master)
 
 # Media storage configuration
@@ -125,3 +124,10 @@ load_config_file: true
 # Editor settings
 editor:
   preview: true # Enable preview mode
+
+# Role-based access control
+# Only users with admin or editor roles can access the CMS
+access_control:
+  admin:
+    - admin
+    - editor
