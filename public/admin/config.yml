@@ -8,8 +8,8 @@ media_folder: "public/uploads" # Media files will be stored in the repo under pu
 public_folder: "/uploads" # The src attribute for uploaded media will begin with /uploads
 
 # Site URL for previews
-site_url: https://coruscating-bombolone-7086f6.netlify.app
-display_url: https://coruscating-bombolone-7086f6.netlify.app
+site_url: https://saisamovie.netlify.app
+display_url: https://saisamovie.netlify.app
 
 # Collections for different content types
 collections:
