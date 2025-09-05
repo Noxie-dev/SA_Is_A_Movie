@@ -44,7 +44,7 @@ VITE_SANITY_DATASET=production
 4. **Add CORS origins**:
    - `http://localhost:5173` (for local development)
    - `https://your-site.netlify.app` (for production)
-   - `https://saisamovie.netlify.app` (your actual site)
+   - `[YOUR_SITE_URL]` (your actual site)
 
 ### **Step 3: Create Content in Sanity Studio**
 

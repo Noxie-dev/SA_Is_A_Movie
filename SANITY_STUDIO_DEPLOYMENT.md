@@ -61,7 +61,7 @@ Deploy your SA IS A MOVIE Studio to Netlify and connect it to your Sanity projec
 3. **Configure CORS:**
    - Go to "API" → "CORS origins"
    - Add your Studio URL: `https://your-site-name.netlify.app`
-   - Add your main site URL: `https://saisamovie.netlify.app`
+   - Add your main site URL: `[YOUR_SITE_URL]`
    - Add local development: `http://localhost:5173`
 
 ## 🔧 Configuration Files
@@ -214,5 +214,5 @@ Your SA IS A MOVIE Studio is now ready for professional content management! 🎬
 ---
 
 **Studio URL**: `https://your-site-name.netlify.app`  
-**Main Site**: `https://saisamovie.netlify.app`  
+**Main Site**: `[YOUR_SITE_URL]`  
 **Local Development**: `http://localhost:3333`

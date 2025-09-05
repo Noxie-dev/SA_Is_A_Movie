@@ -10,12 +10,12 @@ const Profile = () => {
 
   useEffect(() => {
     const getUserMetadata = async () => {
-      const domain = "dev-sa-is-a-movie.us.auth0.com";
+      const domain = import.meta.env.VITE_AUTH0_DOMAIN;
 
       try {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
-            audience: `https://${domain}/api/v2/`,
+            audience: import.meta.env.VITE_AUTH0_AUDIENCE,
             scope: "read:current_user",
           },
         });

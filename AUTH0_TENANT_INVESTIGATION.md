@@ -5,13 +5,13 @@
 Based on your code, here's what I found about your Auth0 tenant setup:
 
 ### **Tenant Information**
-- **Domain**: `dev-sa-is-a-movie.us.auth0.com`
+- **Domain**: `[YOUR_AUTH0_DOMAIN]`
 - **Client ID**: `EuWZO7zJRvldikvu4wwjDeLoL7HKX4s5`
 - **Environment**: Development (indicated by "dev-" prefix)
 
 ### **Application Configuration**
 - **Application Type**: Single Page Application (SPA)
-- **Audience**: `https://dev-sa-is-a-movie.us.auth0.com/api/v2/`
+- **Audience**: `https://[YOUR_AUTH0_DOMAIN]/api/v2/`
 - **Scopes**: 
   - `read:current_user`
   - `update:current_user_metadata`
@@ -43,7 +43,7 @@ Navigate to: **Applications** → **Applications** → Your App
 Navigate to: **Applications** → **APIs**
 
 **Verify Management API:**
-- ✅ **Identifier**: `https://dev-sa-is-a-movie.us.auth0.com/api/v2/`
+- ✅ **Identifier**: `https://[YOUR_AUTH0_DOMAIN]/api/v2/`
 - ✅ **Scopes**: 
   - `read:current_user`
   - `update:current_user_metadata`
@@ -116,7 +116,7 @@ You need one of these for CLI access:
 ### **Create CLI Configuration**
 ```json
 {
-  "AUTH0_DOMAIN": "dev-sa-is-a-movie.us.auth0.com",
+  "AUTH0_DOMAIN": "[YOUR_AUTH0_DOMAIN]",
   "AUTH0_CLIENT_ID": "EuWZO7zJRvldikvu4wwjDeLoL7HKX4s5",
   "AUTH0_CLIENT_SECRET": "your-client-secret-here"
 }
