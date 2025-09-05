@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,10 +9,22 @@ import ParticleBackground from './components/ParticleBackground';
 import CommentsSection from './components/CommentsSection';
 import AuthButton from './components/AuthButton';
 import TrendingStories from './components/TrendingStories';
+import RecentPosts from './components/RecentPosts';
+import BlogPage from './pages/BlogPage';
 import './App.css';
 
 function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/blog/*" element={<BlogPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
+  );
+}
 
+function HomePage() {
   const stats = [
     { icon: Users, number: "500K+", label: "Followers" },
     { icon: TrendingUp, number: "1M+", label: "Monthly Views" },
@@ -23,17 +36,19 @@ function App() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm border-b border-yellow-500/20">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center space-x-3"
-          >
-            <img src={iconLogo} alt="SA IS A MOVIE Icon" className="h-10 w-10" />
-            <span className="text-xl font-bold">
-              SA IS A <span className="saisa-text-red">MOVIE</span>
-            </span>
-          </motion.div>
+          <Link to="/" className="flex items-center space-x-3">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center space-x-3"
+            >
+              <img src={iconLogo} alt="SA IS A MOVIE Icon" className="h-10 w-10" />
+              <span className="text-xl font-bold">
+                SA IS A <span className="saisa-text-red">MOVIE</span>
+              </span>
+            </motion.div>
+          </Link>
           
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -41,6 +56,8 @@ function App() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hidden md:flex items-center space-x-6"
           >
+            <Link to="/" className="hover:text-yellow-400 transition-colors">Home</Link>
+            <Link to="/blog" className="hover:text-yellow-400 transition-colors">Blog</Link>
             <a href="#trending" className="hover:text-yellow-400 transition-colors">Trending</a>
             <a href="#about" className="hover:text-yellow-400 transition-colors">About</a>
             <a href="#contact" className="hover:text-yellow-400 transition-colors">Contact</a>
@@ -111,10 +128,12 @@ function App() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 mb-12 relative z-10"
         >
-          <Button className="saisa-bg-red text-white text-lg px-8 py-4 rounded-2xl font-bold red-glow hover:scale-105 transition-all duration-300">
-            <Play className="mr-2 h-5 w-5" />
-            Read Latest Stories
-          </Button>
+          <Link to="/blog">
+            <Button className="saisa-bg-red text-white text-lg px-8 py-4 rounded-2xl font-bold red-glow hover:scale-105 transition-all duration-300">
+              <Play className="mr-2 h-5 w-5" />
+              Read Latest Stories
+            </Button>
+          </Link>
           <Button variant="outline" className="border-yellow-400 text-yellow-400 text-lg px-8 py-4 rounded-2xl font-bold neon-glow hover:bg-yellow-400 hover:text-black transition-all duration-300">
             <TrendingUp className="mr-2 h-5 w-5" />
             Trending Now
@@ -140,6 +159,9 @@ function App() {
 
       {/* Trending Topics Section */}
       <TrendingStories />
+
+      {/* Recent Blog Posts Section */}
+      <RecentPosts />
 
       {/* About Section */}
       <section id="about" className="px-6 py-20 bg-black">
