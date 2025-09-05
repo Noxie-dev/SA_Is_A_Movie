@@ -5,7 +5,7 @@ import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'saisa-movie',
+  title: 'SA IS A MOVIE Studio',
 
   projectId: 'fxocdfoz',
   dataset: 'production',
@@ -15,4 +15,11 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  // Studio configuration
+  studio: {
+    components: {
+      // You can customize the studio appearance here
+    }
+  }
 })
