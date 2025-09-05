@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Noxie-dev/SA_Is_A_Movie # Path to your GitHub repo
   branch: main # Branch to update (optional; defaults to master)
 
 # Media storage configuration
@@ -7,8 +8,8 @@ media_folder: "public/uploads" # Media files will be stored in the repo under pu
 public_folder: "/uploads" # The src attribute for uploaded media will begin with /uploads
 
 # Site URL for previews
-site_url: https://your-site-name.netlify.app
-display_url: https://your-site-name.netlify.app
+site_url: https://coruscating-bombolone-7086f6.netlify.app
+display_url: https://coruscating-bombolone-7086f6.netlify.app
 
 # Collections for different content types
 collections:
@@ -116,3 +117,11 @@ collections:
 
 # Global settings
 publish_mode: editorial_workflow # Enable draft/publish workflow
+
+# Decap CMS specific settings
+local_backend: false # Set to true for local development
+load_config_file: true
+
+# Editor settings
+editor:
+  preview: true # Enable preview mode
