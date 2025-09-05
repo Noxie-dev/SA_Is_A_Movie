@@ -7,8 +7,8 @@
   NODE_VERSION = "22"
   NPM_FLAGS = "--version"
 
-# Functions configuration (temporarily disabled for favicon deployment)
-# functions = "netlify/functions"
+# Functions configuration
+functions = "netlify/functions"
 
 ## Uncomment to use this redirect for Single Page Applications like create-react-app.
 ## Not needed for static site generators.
