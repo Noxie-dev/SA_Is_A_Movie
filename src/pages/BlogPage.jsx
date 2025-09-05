@@ -3,6 +3,8 @@ import { usePost } from '../hooks/useSanity';
 import BlogPost from '../components/BlogPost';
 import BlogList from '../components/BlogList';
 import BlogLayout from '../components/BlogLayout';
+import PostsList from '../components/PostsList';
+import PostPage from '../components/PostPage';
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -11,15 +13,22 @@ const BlogPage = () => {
   if (slug) {
     return (
       <BlogLayout>
-        <BlogPostPage slug={slug} />
+        <PostPage slug={slug} />
       </BlogLayout>
     );
   }
 
-  // Otherwise show blog list
+  // Otherwise show blog list - you can choose between the simple or advanced version
   return (
     <BlogLayout>
-      <BlogList />
+      {/* Simple version (matches your examples) */}
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Blog Posts</h1>
+        <PostsList />
+      </div>
+      
+      {/* Advanced version (with search and filters) - uncomment to use */}
+      {/* <BlogList /> */}
     </BlogLayout>
   );
 };
