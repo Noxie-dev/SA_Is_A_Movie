@@ -45,10 +45,10 @@ Since the Netlify CLI doesn't have direct Identity commands, follow these steps:
 2. **Add these variables**:
 
 ```
-GITHUB_OWNER = Noxie-dev
-GITHUB_REPO = SA_Is_A_Movie
+GITHUB_OWNER = [Your GitHub Username]
+GITHUB_REPO = [Your Repository Name]
 GITHUB_TOKEN = [Your GitHub Personal Access Token]
-SITE_URL = https://saisamovie.netlify.app
+SITE_URL = [Your Site URL]
 ```
 
 ### **Step 4: Deploy the Functions**
@@ -95,7 +95,7 @@ else {
 ## 🔧 **Testing the Setup**
 
 ### **1. Test User Registration**
-1. Go to `https://saisamovie.netlify.app/admin/`
+1. Go to `[Your Site URL]/admin/`
 2. Click "Sign up"
 3. Use different email addresses to test role assignment:
    - `test@saisamovie.com` → Should get admin role

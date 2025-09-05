@@ -22,14 +22,14 @@ exports.handler = async (event, context) => {
       };
     }
 
-    const owner = process.env.GITHUB_OWNER || 'Noxie-dev';
-    const repo = process.env.GITHUB_REPO || 'SA_Is_A_Movie';
+    const owner = process.env.GITHUB_OWNER;
+    const repo = process.env.GITHUB_REPO;
     const token = process.env.GITHUB_TOKEN;
 
-    if (!token) {
+    if (!token || !owner || !repo) {
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: 'GitHub token not configured' })
+        body: JSON.stringify({ error: 'GitHub configuration not complete' })
       };
     }
 

@@ -1,0 +1,11 @@
+{
+  "AUTH0_DOMAIN": "dev-sa-is-a-movie.us.auth0.com",
+  "AUTH0_CLIENT_ID": "2VtrMELNjVXvVxvNCdTfkqi5hvU0iXSY",
+  "AUTH0_CLIENT_SECRET": "SPA_DOES_NOT_USE_CLIENT_SECRET",
+  "AUTH0_AUDIENCE": "https://dev-sa-is-a-movie.us.auth0.com/api/v2/",
+  "AUTH0_SCOPE": "read:current_user update:current_user_metadata",
+  "AUTH0_REDIRECT_URI": "http://localhost:5174",
+  "AUTH0_LOGOUT_REDIRECT_URI": "http://localhost:5174",
+  "AUTH0_WEB_ORIGIN": "http://localhost:5174",
+  "AUTH0_CORS_ORIGIN": "http://localhost:5174"
+}

@@ -6,6 +6,9 @@
 [build.environment]
   NODE_VERSION = "22"
   NPM_FLAGS = "--version"
+  # Contentful environment variables (set these in Netlify dashboard)
+  # VITE_CONTENTFUL_SPACE_ID = "your-space-id"
+  # VITE_CONTENTFUL_ACCESS_TOKEN = "your-access-token"
 
 # Functions configuration
 functions = "netlify/functions"

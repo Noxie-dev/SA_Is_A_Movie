@@ -1,0 +1,297 @@
+{
+  "contentTypes": [
+    {
+      "sys": {
+        "id": "trendingStory"
+      },
+      "name": "Trending Story",
+      "description": "Stories that are currently trending on SA IS A MOVIE",
+      "displayField": "title",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "size": {
+                "max": 100
+              }
+            }
+          ]
+        },
+        {
+          "id": "description",
+          "name": "Description",
+          "type": "Text",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "size": {
+                "max": 500
+              }
+            }
+          ]
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "in": [
+                "music",
+                "scandal",
+                "celebrity",
+                "culture",
+                "politics",
+                "sports"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "color",
+          "name": "Color Theme",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "in": [
+                "saisa-text-blue",
+                "saisa-text-pink",
+                "saisa-text-yellow",
+                "saisa-text-red"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "featuredImage",
+          "name": "Featured Image",
+          "type": "Link",
+          "linkType": "Asset",
+          "localized": false,
+          "required": false
+        },
+        {
+          "id": "isActive",
+          "name": "Is Active",
+          "type": "Boolean",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "publishedDate",
+          "name": "Published Date",
+          "type": "Date",
+          "localized": false,
+          "required": true
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "blogPost"
+      },
+      "name": "Blog Post",
+      "description": "Full blog posts for SA IS A MOVIE",
+      "displayField": "title",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "size": {
+                "max": 200
+              }
+            }
+          ]
+        },
+        {
+          "id": "slug",
+          "name": "Slug",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              }
+            }
+          ]
+        },
+        {
+          "id": "excerpt",
+          "name": "Excerpt",
+          "type": "Text",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "size": {
+                "max": 300
+              }
+            }
+          ]
+        },
+        {
+          "id": "content",
+          "name": "Content",
+          "type": "RichText",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "featuredImage",
+          "name": "Featured Image",
+          "type": "Link",
+          "linkType": "Asset",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "type": "Symbol",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "tags",
+          "name": "Tags",
+          "type": "Array",
+          "items": {
+            "type": "Symbol"
+          },
+          "localized": false,
+          "required": false
+        },
+        {
+          "id": "author",
+          "name": "Author",
+          "type": "Symbol",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "isPublished",
+          "name": "Is Published",
+          "type": "Boolean",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "publishedDate",
+          "name": "Published Date",
+          "type": "Date",
+          "localized": false,
+          "required": true
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "heroContent"
+      },
+      "name": "Hero Content",
+      "description": "Main hero section content for the homepage",
+      "displayField": "title",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "subtitle",
+          "name": "Subtitle",
+          "type": "Text",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "backgroundImage",
+          "name": "Background Image",
+          "type": "Link",
+          "linkType": "Asset",
+          "localized": false,
+          "required": false
+        },
+        {
+          "id": "ctaText",
+          "name": "Call to Action Text",
+          "type": "Symbol",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "ctaLink",
+          "name": "Call to Action Link",
+          "type": "Symbol",
+          "localized": false,
+          "required": true
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "settings"
+      },
+      "name": "Site Settings",
+      "description": "Global site settings and configuration",
+      "displayField": "siteName",
+      "fields": [
+        {
+          "id": "siteName",
+          "name": "Site Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "siteDescription",
+          "name": "Site Description",
+          "type": "Text",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "socialLinks",
+          "name": "Social Links",
+          "type": "Object",
+          "localized": false,
+          "required": false
+        },
+        {
+          "id": "contactEmail",
+          "name": "Contact Email",
+          "type": "Symbol",
+          "localized": false,
+          "required": false
+        },
+        {
+          "id": "analyticsId",
+          "name": "Analytics ID",
+          "type": "Symbol",
+          "localized": false,
+          "required": false
+        }
+      ]
+    }
+  ]
+}
+
