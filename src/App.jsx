@@ -5,6 +5,7 @@ import { Instagram, Twitter, Facebook, Play, TrendingUp, Users, Calendar } from 
 import typographyLogo from './assets/saisa_movie_typography_logo.png';
 import iconLogo from './assets/saisa_movie_icon_logo.png';
 import ParticleBackground from './components/ParticleBackground';
+import CommentsSection from './components/CommentsSection';
 import './App.css';
 
 function App() {
@@ -230,6 +231,12 @@ function App() {
                         Read More →
                       </Button>
                     </div>
+                    
+                    {/* Comments Section for each story */}
+                    <CommentsSection 
+                      postId={story.id} 
+                      postTitle={story.title}
+                    />
                   </CardContent>
                 </Card>
               </motion.div>

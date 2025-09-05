@@ -5,4 +5,20 @@ dist
 .DS_Store
 *.log
 
+# Netlify CMS
+public/uploads/
+src/content/
 
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+# Local Netlify folder
+.netlify

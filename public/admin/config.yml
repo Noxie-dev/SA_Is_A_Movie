@@ -1,0 +1,115 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+# Media storage configuration
+media_folder: "public/uploads" # Media files will be stored in the repo under public/uploads/
+public_folder: "/uploads" # The src attribute for uploaded media will begin with /uploads
+
+# Site URL for previews
+site_url: https://your-site-name.netlify.app
+display_url: https://your-site-name.netlify.app
+
+# Collections for different content types
+collections:
+  # Trending Stories Collection
+  - name: "trending_stories"
+    label: "Trending Stories"
+    folder: "src/content/trending"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Category", name: "category", widget: "select", options: ["music", "scandal", "celebrity", "culture"]}
+      - {label: "Color", name: "color", widget: "select", options: ["saisa-text-blue", "saisa-text-pink", "saisa-text-yellow", "saisa-text-red"]}
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "Content", name: "body", widget: "markdown"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Tags", name: "tags", widget: "list", default: []}
+
+  # About Section Content
+  - name: "about"
+    label: "About Section"
+    files:
+      - file: "src/content/about.md"
+        label: "About Page"
+        name: "about"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Subtitle", name: "subtitle", widget: "string"}
+          - {label: "Content", name: "body", widget: "markdown"}
+          - {label: "Mission Statement", name: "mission", widget: "text"}
+
+  # Site Settings
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "src/content/settings.json"
+        label: "Site Configuration"
+        name: "settings"
+        fields:
+          - {label: "Site Title", name: "title", widget: "string"}
+          - {label: "Site Description", name: "description", widget: "text"}
+          - {label: "Tagline", name: "tagline", widget: "string"}
+          - {label: "Social Media", name: "social", widget: "object", fields:
+              - {label: "Instagram URL", name: "instagram", widget: "string", required: false}
+              - {label: "Twitter URL", name: "twitter", widget: "string", required: false}
+              - {label: "Facebook URL", name: "facebook", widget: "string", required: false}
+              - {label: "YouTube URL", name: "youtube", widget: "string", required: false}}
+          - {label: "Statistics", name: "stats", widget: "object", fields:
+              - {label: "Followers", name: "followers", widget: "string"}
+              - {label: "Monthly Views", name: "monthly_views", widget: "string"}
+              - {label: "Content Frequency", name: "content_frequency", widget: "string"}}
+
+  # Hero Section Content
+  - name: "hero"
+    label: "Hero Section"
+    files:
+      - file: "src/content/hero.md"
+        label: "Hero Content"
+        name: "hero"
+        fields:
+          - {label: "Main Headline", name: "headline", widget: "string"}
+          - {label: "Subheadline", name: "subheadline", widget: "text"}
+          - {label: "Primary CTA Text", name: "primary_cta", widget: "string"}
+          - {label: "Secondary CTA Text", name: "secondary_cta", widget: "string"}
+          - {label: "Background Image", name: "background_image", widget: "image", required: false}
+
+  # Newsletter/Contact Section
+  - name: "newsletter"
+    label: "Newsletter & Contact"
+    files:
+      - file: "src/content/newsletter.md"
+        label: "Newsletter Section"
+        name: "newsletter"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
+          - {label: "Email Placeholder", name: "email_placeholder", widget: "string"}
+          - {label: "Subscribe Button Text", name: "subscribe_text", widget: "string"}
+
+  # Comments Collection
+  - name: "comments"
+    label: "Comments"
+    folder: "src/content/comments"
+    create: false
+    slug: "{{postId}}-{{date}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Email", name: "email", widget: "string", required: false}
+      - {label: "Post ID", name: "postId", widget: "string"}
+      - {label: "Post Title", name: "postTitle", widget: "string", required: false}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Approved", name: "approved", widget: "boolean", default: false}
+      - {label: "Reactions", name: "reactions", widget: "object", fields:
+          - {label: "Like", name: "like", widget: "number", default: 0}
+          - {label: "Love", name: "love", widget: "number", default: 0}
+          - {label: "Laugh", name: "laugh", widget: "number", default: 0}
+          - {label: "Angry", name: "angry", widget: "number", default: 0}
+          - {label: "Fire", name: "fire", widget: "number", default: 0}}
+      - {label: "Comment", name: "body", widget: "markdown"}
+
+# Global settings
+publish_mode: editorial_workflow # Enable draft/publish workflow
