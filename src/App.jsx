@@ -1,19 +1,20 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Instagram, Twitter, Facebook, Play, TrendingUp, Users, Calendar } from "lucide-react";
-import typographyLogo from './assets/saisa_movie_typography_logo.png';
-import iconLogo from './assets/saisa_movie_icon_logo.png';
+import { Play, TrendingUp, Users, Calendar, Instagram, Twitter, Facebook } from "lucide-react";
+import { Link } from "react-router-dom";
 import SALogo from './components/SALogo';
 import ParticleBackground from './components/ParticleBackground';
-import CommentsSection from './components/CommentsSection';
-import AuthButton from './components/AuthButton';
 import { lazy, Suspense } from 'react';
 import './App.css';
 
-// Lazy load heavy components for better code splitting
+// Lazy load pages for better code splitting
 const BlogPage = lazy(() => import('./pages/BlogPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const TrendingPage = lazy(() => import('./pages/TrendingPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
 const TrendingStories = lazy(() => import('./components/TrendingStories'));
 const RecentPosts = lazy(() => import('./components/RecentPosts'));
 
@@ -21,6 +22,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route 
           path="/blog/*" 
           element={
@@ -33,7 +35,66 @@ function App() {
             </Suspense>
           } 
         />
-        <Route path="/" element={<HomePage />} />
+        <Route 
+          path="/about" 
+          element={
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              </div>
+            }>
+              <AboutPage />
+            </Suspense>
+          } 
+        />
+        <Route 
+          path="/contact" 
+          element={
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              </div>
+            }>
+              <ContactPage />
+            </Suspense>
+          } 
+        />
+        <Route 
+          path="/trending" 
+          element={
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              </div>
+            }>
+              <TrendingPage />
+            </Suspense>
+          } 
+        />
+        <Route 
+          path="/privacy" 
+          element={
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              </div>
+            }>
+              <PrivacyPage />
+            </Suspense>
+          } 
+        />
+        <Route 
+          path="/terms" 
+          element={
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              </div>
+            }>
+              <TermsPage />
+            </Suspense>
+          } 
+        />
       </Routes>
     </Router>
   );
@@ -73,10 +134,9 @@ function HomePage() {
           >
             <Link to="/" className="hover:text-[#FFA500] transition-colors">Home</Link>
             <Link to="/blog" className="hover:text-[#FFA500] transition-colors">Blog</Link>
-            <a href="#trending" className="hover:text-[#FFA500] transition-colors">Trending</a>
-            <a href="#about" className="hover:text-[#FFA500] transition-colors">About</a>
-            <a href="#contact" className="hover:text-[#FFA500] transition-colors">Contact</a>
-            <AuthButton />
+            <Link to="/trending" className="hover:text-[#FFA500] transition-colors">Trending</Link>
+            <Link to="/about" className="hover:text-[#FFA500] transition-colors">About</Link>
+            <Link to="/contact" className="hover:text-[#FFA500] transition-colors">Contact</Link>
           </motion.div>
         </div>
       </nav>
@@ -318,9 +378,9 @@ function HomePage() {
             </div>
             
             <div className="flex space-x-4 mt-4 md:mt-0">
-              <a href="#" className="text-white/60 hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="text-white/60 hover:text-white transition-colors">Terms</a>
-              <a href="#" className="text-white/60 hover:text-white transition-colors">Contact</a>
+              <Link to="/privacy" className="text-white/60 hover:text-white transition-colors">Privacy</Link>
+              <Link to="/terms" className="text-white/60 hover:text-white transition-colors">Terms</Link>
+              <Link to="/contact" className="text-white/60 hover:text-white transition-colors">Contact</Link>
             </div>
           </div>
         </div>
