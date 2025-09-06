@@ -11,4 +11,78 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          // Vendor chunks for better caching
+          if (id.includes('node_modules')) {
+            // React core
+            if (id.includes('react/') && !id.includes('react-dom')) {
+              return 'react-core';
+            }
+            // React DOM
+            if (id.includes('react-dom')) {
+              return 'react-dom';
+            }
+            // React Router
+            if (id.includes('react-router')) {
+              return 'react-router';
+            }
+            // Auth0
+            if (id.includes('@auth0')) {
+              return 'auth-vendor';
+            }
+            // Radix UI components
+            if (id.includes('@radix-ui')) {
+              return 'ui-vendor';
+            }
+            // Framer Motion
+            if (id.includes('framer-motion')) {
+              return 'animation-vendor';
+            }
+            // Form libraries
+            if (id.includes('react-hook-form') || id.includes('@hookform') || id.includes('zod')) {
+              return 'form-vendor';
+            }
+            // Sanity CMS
+            if (id.includes('@sanity') || id.includes('@portabletext')) {
+              return 'sanity-vendor';
+            }
+            // Contentful
+            if (id.includes('contentful')) {
+              return 'contentful-vendor';
+            }
+            // Utility libraries
+            if (id.includes('date-fns') || id.includes('clsx') || id.includes('tailwind-merge') || id.includes('class-variance-authority')) {
+              return 'utils-vendor';
+            }
+            // Icons
+            if (id.includes('lucide-react')) {
+              return 'icons-vendor';
+            }
+            // Charts
+            if (id.includes('recharts')) {
+              return 'charts-vendor';
+            }
+            // Carousel
+            if (id.includes('embla-carousel')) {
+              return 'carousel-vendor';
+            }
+            // GitHub API
+            if (id.includes('@octokit')) {
+              return 'github-vendor';
+            }
+            // Other vendor libraries
+            return 'vendor';
+          }
+        }
+      }
+    },
+    // Increase chunk size warning limit to 1000kb for better optimization
+    chunkSizeWarningLimit: 1000,
+    // Ensure consistent build output
+    target: 'esnext',
+    minify: 'esbuild'
+  }
 })

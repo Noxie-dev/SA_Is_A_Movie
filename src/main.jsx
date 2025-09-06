@@ -1,8 +1,10 @@
-import { StrictMode } from 'react'
+import { StrictMode, lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Auth0Provider } from '@auth0/auth0-react'
 import './index.css'
 import App from './App.jsx'
+
+// Lazy load Auth0Provider to reduce initial bundle size
+const Auth0Provider = lazy(() => import('@auth0/auth0-react').then(module => ({ default: module.Auth0Provider })))
 
 const root = createRoot(document.getElementById('root'))
 
@@ -22,18 +24,24 @@ if (!auth0Domain || !auth0ClientId) {
 } else {
   root.render(
     <StrictMode>
-      <Auth0Provider
-        domain={auth0Domain}
-        clientId={auth0ClientId}
-        authorizationParams={{
-          redirect_uri: window.location.origin,
-          audience: auth0Audience,
-          scope: "read:current_user update:current_user_metadata"
-        }}
-        useRefreshTokens={true}
-      >
-        <App />
-      </Auth0Provider>
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center bg-[#0A0A2A]">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+        </div>
+      }>
+        <Auth0Provider
+          domain={auth0Domain}
+          clientId={auth0ClientId}
+          authorizationParams={{
+            redirect_uri: window.location.origin,
+            audience: auth0Audience,
+            scope: "read:current_user update:current_user_metadata"
+          }}
+          useRefreshTokens={true}
+        >
+          <App />
+        </Auth0Provider>
+      </Suspense>
     </StrictMode>
   );
 }

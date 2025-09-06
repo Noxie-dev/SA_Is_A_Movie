@@ -9,16 +9,30 @@ import SALogo from './components/SALogo';
 import ParticleBackground from './components/ParticleBackground';
 import CommentsSection from './components/CommentsSection';
 import AuthButton from './components/AuthButton';
-import TrendingStories from './components/TrendingStories';
-import RecentPosts from './components/RecentPosts';
-import BlogPage from './pages/BlogPage';
+import { lazy, Suspense } from 'react';
 import './App.css';
+
+// Lazy load heavy components for better code splitting
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const TrendingStories = lazy(() => import('./components/TrendingStories'));
+const RecentPosts = lazy(() => import('./components/RecentPosts'));
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/blog/*" element={<BlogPage />} />
+        <Route 
+          path="/blog/*" 
+          element={
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              </div>
+            }>
+              <BlogPage />
+            </Suspense>
+          } 
+        />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>
@@ -162,10 +176,41 @@ function HomePage() {
       </section>
 
       {/* Trending Topics Section */}
-      <TrendingStories />
+      <Suspense fallback={
+        <section className="py-20 bg-[#0A0A2A]">
+          <div className="container mx-auto px-6 text-center">
+            <div className="animate-pulse">
+              <div className="h-12 bg-gray-700 rounded mb-8 max-w-md mx-auto"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-64 bg-gray-700 rounded-lg"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      }>
+        <TrendingStories />
+      </Suspense>
 
       {/* Recent Blog Posts Section */}
-      <RecentPosts />
+      <Suspense fallback={
+        <section className="py-12 bg-[#0A0A2A]">
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-700 rounded mb-4 max-w-xs mx-auto"></div>
+              <div className="h-4 bg-gray-700 rounded mb-8 max-w-md mx-auto"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-80 bg-gray-700 rounded-lg"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      }>
+        <RecentPosts />
+      </Suspense>
 
       {/* About Section */}
       <section id="about" className="px-6 py-20 bg-[#0A0A2A]">

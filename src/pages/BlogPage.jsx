@@ -1,10 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { usePost } from '../hooks/useSanity';
-import BlogPost from '../components/BlogPost';
-import BlogList from '../components/BlogList';
+import { lazy, Suspense } from 'react';
 import BlogLayout from '../components/BlogLayout';
-import PostsList from '../components/PostsList';
-import PostPage from '../components/PostPage';
+
+// Lazy load heavy components for better code splitting
+const BlogPost = lazy(() => import('../components/BlogPost'));
+const BlogList = lazy(() => import('../components/BlogList'));
+const PostsList = lazy(() => import('../components/PostsList'));
+const PostPage = lazy(() => import('../components/PostPage'));
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -13,7 +16,13 @@ const BlogPage = () => {
   if (slug) {
     return (
       <BlogLayout>
-        <PostPage slug={slug} />
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
+          </div>
+        }>
+          <PostPage slug={slug} />
+        </Suspense>
       </BlogLayout>
     );
   }
@@ -24,11 +33,19 @@ const BlogPage = () => {
       {/* Simple version (matches your examples) */}
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Blog Posts</h1>
-        <PostsList />
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
+          </div>
+        }>
+          <PostsList />
+        </Suspense>
       </div>
       
       {/* Advanced version (with search and filters) - uncomment to use */}
-      {/* <BlogList /> */}
+      {/* <Suspense fallback={<div>Loading...</div>}>
+        <BlogList />
+      </Suspense> */}
     </BlogLayout>
   );
 };
@@ -89,7 +106,15 @@ const BlogPostPage = ({ slug }) => {
     );
   }
 
-  return <BlogPost post={post} />;
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
+      </div>
+    }>
+      <BlogPost post={post} />
+    </Suspense>
+  );
 };
 
 export default BlogPage;

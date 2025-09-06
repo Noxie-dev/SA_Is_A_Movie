@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react';
 import { urlFor } from '../services/sanity';
 import { format } from 'date-fns';
+import AITools from './AITools';
 
 // Custom components for PortableText
 const portableTextComponents = {
@@ -161,6 +162,9 @@ const BlogPost = ({ post }) => {
       <div className="prose prose-lg max-w-none">
         {body && <PortableText value={body} components={portableTextComponents} />}
       </div>
+
+      {/* AI Tools */}
+      {body && <AITools content={body} />}
 
       {/* Author Bio */}
       {author && author.bio && (
