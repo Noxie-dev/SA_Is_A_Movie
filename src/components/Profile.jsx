@@ -54,12 +54,12 @@ const Profile = () => {
 
   return (
     <div className="flex items-center space-x-3">
-      <Card className="bg-black/50 border-yellow-500/30">
+      <Card className="bg-[#0A0A2A]/50 border-[#FFA500]/30">
         <CardContent className="p-3">
           <div className="flex items-center space-x-3">
             <Avatar className="h-8 w-8">
               <AvatarImage src={user?.picture} alt={user?.name} />
-              <AvatarFallback className="bg-yellow-500 text-black font-bold">
+              <AvatarFallback className="bg-[#FFA500] text-black font-bold">
                 {user?.name?.charAt(0) || 'U'}
               </AvatarFallback>
             </Avatar>
@@ -67,7 +67,7 @@ const Profile = () => {
               <div className="text-white font-semibold">{user?.name}</div>
               <div className="text-gray-400 text-xs">{user?.email}</div>
               {userMetadata && Object.keys(userMetadata).length > 0 && (
-                <div className="text-yellow-400 text-xs mt-1">
+                <div className="text-[#FFA500] text-xs mt-1">
                   Metadata: {Object.keys(userMetadata).length} items
                 </div>
               )}

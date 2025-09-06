@@ -77,7 +77,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(0.08 0.15 250);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -121,62 +121,97 @@
 
 /* SA IS A MOVIE Custom Styles */
 .saisa-bg {
-  background-color: #0D0D0D;
+  background-color: #0A0A2A;
 }
 
 .saisa-text-yellow {
-  color: #FFD700;
+  color: #FFA500;
 }
 
 .saisa-text-blue {
-  color: #007BFF;
+  color: #00FFFF;
 }
 
 .saisa-text-pink {
-  color: #FF007F;
+  color: #FF66B2;
 }
 
 .saisa-text-red {
-  color: #FF0000;
+  color: #FF66B2;
 }
 
 .saisa-bg-yellow {
-  background-color: #FFD700;
+  background-color: #FFA500;
 }
 
 .saisa-bg-red {
-  background-color: #FF0000;
+  background-color: #FF66B2;
 }
 
 .saisa-bg-dark {
-  background-color: #1A1A1A;
+  background-color: #0A0A2A;
 }
 
 .neon-glow {
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
   transition: box-shadow 0.3s ease;
 }
 
 .neon-glow:hover {
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 30px rgba(255, 165, 0, 0.8);
 }
 
 .red-glow {
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(255, 102, 178, 0.5);
   transition: box-shadow 0.3s ease;
 }
 
 .red-glow:hover {
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+  box-shadow: 0 0 30px rgba(255, 102, 178, 0.8);
 }
 
 .text-shadow-neon {
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
 }
 
 .gradient-text {
-  background: linear-gradient(45deg, #FFD700, #FF007F);
+  background: linear-gradient(45deg, #FFA500, #FF66B2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* New accent color classes */
+.saisa-text-electric-blue {
+  color: #00FFFF;
+}
+
+.saisa-bg-electric-blue {
+  background-color: #00FFFF;
+}
+
+.saisa-text-purple {
+  color: #8A2BE2;
+}
+
+.saisa-bg-purple {
+  background-color: #8A2BE2;
+}
+
+.electric-blue-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.electric-blue-glow:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+}
+
+.pink-glow {
+  box-shadow: 0 0 20px rgba(255, 102, 178, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.pink-glow:hover {
+  box-shadow: 0 0 30px rgba(255, 102, 178, 0.8);
 }

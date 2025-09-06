@@ -18,14 +18,14 @@ const RecentPosts = ({ limit = 3, showHeader = true }) => {
   }
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-12 bg-[#0A0A2A]">
       <div className="mx-auto max-w-7xl px-4">
         {showHeader && (
           <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-white">
               Latest Stories
             </h2>
-            <p className="mt-2 text-lg text-gray-600">
+            <p className="mt-2 text-lg text-gray-300">
               Discover our most recent posts and insights
             </p>
           </div>
@@ -56,7 +56,7 @@ const RecentPosts = ({ limit = 3, showHeader = true }) => {
               <div className="mt-8 text-center">
                 <Link
                   to="/blog"
-                  className="inline-flex items-center rounded-lg bg-blue-600 px-6 py-3 text-white font-medium hover:bg-blue-700 transition-colors"
+                  className="inline-flex items-center rounded-lg bg-[#FF66B2] px-6 py-3 text-white font-medium hover:bg-[#FF66B2]/80 transition-colors"
                 >
                   View All Posts
                   <svg
@@ -78,7 +78,7 @@ const RecentPosts = ({ limit = 3, showHeader = true }) => {
           </>
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-600">No posts available yet.</p>
+            <p className="text-gray-300">No posts available yet.</p>
           </div>
         )}
       </div>

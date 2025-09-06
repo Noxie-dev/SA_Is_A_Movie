@@ -130,7 +130,7 @@ const TrendingStories = () => {
               whileHover={{ scale: 1.05, y: -10 }}
               className="group cursor-pointer"
             >
-              <Card className="bg-black text-white border-2 border-yellow-500/30 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-300 h-full">
+              <Card className="bg-[#0A0A2A] text-white border-2 border-[#FFA500]/30 rounded-2xl overflow-hidden hover:border-[#FFA500] transition-all duration-300 h-full">
                 <CardContent className="p-6 h-full flex flex-col">
                   <div className="flex items-center justify-between mb-4">
                     <span className={`text-sm font-bold uppercase tracking-wider ${story.color}`}>
@@ -139,7 +139,7 @@ const TrendingStories = () => {
                     <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                   </div>
                   
-                  <h3 className="font-bold text-xl saisa-text-red mb-4 group-hover:text-yellow-400 transition-colors">
+                  <h3 className="font-bold text-xl saisa-text-red mb-4 group-hover:text-[#FFA500] transition-colors">
                     {story.title}
                   </h3>
                   
@@ -148,7 +148,7 @@ const TrendingStories = () => {
                   </p>
                   
                   <div className="mt-6 pt-4 border-t border-gray-700">
-                    <Button variant="ghost" className="text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-300 p-0 h-auto font-semibold">
+                    <Button variant="ghost" className="text-[#FFA500] hover:text-black hover:bg-[#FFA500] transition-all duration-300 p-0 h-auto font-semibold">
                       Read More →
                     </Button>
                   </div>

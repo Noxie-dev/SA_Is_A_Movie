@@ -8,7 +8,7 @@ const BlogPostCard = ({ post }) => {
   const { _id, title, slug, publishedAt, mainImage, author, categories, excerpt } = post;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+    <article className="group relative flex flex-col overflow-hidden rounded-lg border border-[#FFA500]/30 bg-[#0A0A2A] shadow-sm transition-shadow hover:shadow-md hover:border-[#FFA500]">
       {/* Image */}
       {mainImage && (
         <div className="aspect-[16/9] overflow-hidden">
@@ -28,7 +28,7 @@ const BlogPostCard = ({ post }) => {
             {categories.slice(0, 2).map((category) => (
               <span
                 key={category.title}
-                className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
+                className="inline-flex items-center rounded-full bg-[#FF66B2]/20 px-2.5 py-0.5 text-xs font-medium text-[#FF66B2]"
               >
                 {category.title}
               </span>
@@ -37,10 +37,10 @@ const BlogPostCard = ({ post }) => {
         )}
 
         {/* Title */}
-        <h3 className="mb-2 text-lg font-semibold text-gray-900 line-clamp-2">
+        <h3 className="mb-2 text-lg font-semibold text-white line-clamp-2">
           <Link
             to={`/blog/${slug.current}`}
-            className="hover:text-blue-600 transition-colors"
+            className="hover:text-[#FFA500] transition-colors"
           >
             {title}
           </Link>
@@ -48,13 +48,13 @@ const BlogPostCard = ({ post }) => {
 
         {/* Excerpt */}
         {excerpt && (
-          <p className="mb-4 flex-1 text-sm text-gray-600 line-clamp-3">
+          <p className="mb-4 flex-1 text-sm text-gray-300 line-clamp-3">
             {excerpt}
           </p>
         )}
 
         {/* Meta */}
-        <div className="mt-auto flex items-center justify-between text-sm text-gray-500">
+        <div className="mt-auto flex items-center justify-between text-sm text-gray-400">
           <div className="flex items-center space-x-2">
             {author && (
               <>

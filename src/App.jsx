@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Instagram, Twitter, Facebook, Play, TrendingUp, Users, Calendar } from "lucide-react";
 import typographyLogo from './assets/saisa_movie_typography_logo.png';
 import iconLogo from './assets/saisa_movie_icon_logo.png';
+import SALogo from './components/SALogo';
 import ParticleBackground from './components/ParticleBackground';
 import CommentsSection from './components/CommentsSection';
 import AuthButton from './components/AuthButton';
@@ -34,7 +35,7 @@ function HomePage() {
   return (
     <div className="min-h-screen saisa-bg text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm border-b border-yellow-500/20">
+      <nav className="fixed top-0 w-full z-50 bg-[#0A0A2A]/80 backdrop-blur-sm border-b border-[#FFA500]/20">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
             <motion.div
@@ -43,7 +44,7 @@ function HomePage() {
               transition={{ duration: 0.6 }}
               className="flex items-center space-x-3"
             >
-              <img src={iconLogo} alt="SA IS A MOVIE Icon" className="h-10 w-10" />
+              <SALogo className="h-10 w-10" />
               <span className="text-xl font-bold">
                 SA IS A <span className="saisa-text-red">MOVIE</span>
               </span>
@@ -56,11 +57,11 @@ function HomePage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hidden md:flex items-center space-x-6"
           >
-            <Link to="/" className="hover:text-yellow-400 transition-colors">Home</Link>
-            <Link to="/blog" className="hover:text-yellow-400 transition-colors">Blog</Link>
-            <a href="#trending" className="hover:text-yellow-400 transition-colors">Trending</a>
-            <a href="#about" className="hover:text-yellow-400 transition-colors">About</a>
-            <a href="#contact" className="hover:text-yellow-400 transition-colors">Contact</a>
+            <Link to="/" className="hover:text-[#FFA500] transition-colors">Home</Link>
+            <Link to="/blog" className="hover:text-[#FFA500] transition-colors">Blog</Link>
+            <a href="#trending" className="hover:text-[#FFA500] transition-colors">Trending</a>
+            <a href="#about" className="hover:text-[#FFA500] transition-colors">About</a>
+            <a href="#contact" className="hover:text-[#FFA500] transition-colors">Contact</a>
             <AuthButton />
           </motion.div>
         </div>
@@ -83,7 +84,7 @@ function HomePage() {
               repeat: Infinity,
               ease: "linear"
             }}
-            className="absolute top-1/4 left-1/4 w-32 h-32 border-2 border-yellow-400 rounded-full"
+            className="absolute top-1/4 left-1/4 w-32 h-32 border-2 border-[#FFA500] rounded-full"
           />
           <motion.div
             animate={{
@@ -95,7 +96,7 @@ function HomePage() {
               repeat: Infinity,
               ease: "linear"
             }}
-            className="absolute bottom-1/4 right-1/4 w-24 h-24 border-2 border-pink-500 rounded-full"
+            className="absolute bottom-1/4 right-1/4 w-24 h-24 border-2 border-[#FF66B2] rounded-full"
           />
         </div>
 
@@ -105,11 +106,14 @@ function HomePage() {
           transition={{ duration: 0.8 }}
           className="relative z-10"
         >
-          <img 
-            src={typographyLogo} 
-            alt="SA IS A MOVIE" 
-            className="max-w-4xl w-full h-auto mb-8 mx-auto"
-          />
+          <h1 className="text-6xl md:text-8xl font-bold mb-4 leading-tight">
+            <span className="text-[#FFA500]">SA IS A</span>
+            <br />
+            <span className="text-[#FF66B2]">MOVIE</span>
+          </h1>
+          <p className="text-2xl md:text-3xl text-[#00FFFF] font-light mb-8">
+            LIGHTS, CAMERA, DRAMA
+          </p>
         </motion.div>
 
         <motion.p
@@ -134,7 +138,7 @@ function HomePage() {
               Read Latest Stories
             </Button>
           </Link>
-          <Button variant="outline" className="border-yellow-400 text-yellow-400 text-lg px-8 py-4 rounded-2xl font-bold neon-glow hover:bg-yellow-400 hover:text-black transition-all duration-300">
+          <Button variant="outline" className="border-[#FFA500] text-[#FFA500] text-lg px-8 py-4 rounded-2xl font-bold neon-glow hover:bg-[#FFA500] hover:text-black transition-all duration-300">
             <TrendingUp className="mr-2 h-5 w-5" />
             Trending Now
           </Button>
@@ -164,7 +168,7 @@ function HomePage() {
       <RecentPosts />
 
       {/* About Section */}
-      <section id="about" className="px-6 py-20 bg-black">
+      <section id="about" className="px-6 py-20 bg-[#0A0A2A]">
         <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -242,7 +246,7 @@ function HomePage() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-xl bg-black border border-yellow-500/30 text-white placeholder-gray-500 focus:border-yellow-500 focus:outline-none"
+                  className="flex-1 px-4 py-3 rounded-xl bg-[#0A0A2A] border border-[#FFA500]/30 text-white placeholder-gray-500 focus:border-[#FFA500] focus:outline-none"
                 />
                 <Button className="saisa-bg-red text-white px-6 py-3 rounded-xl font-bold red-glow hover:scale-105 transition-all duration-300">
                   Subscribe
@@ -254,11 +258,11 @@ function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="saisa-bg-red text-center py-8">
+      <footer className="bg-[#FF66B2] text-center py-8">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <img src={iconLogo} alt="SA IS A MOVIE Icon" className="h-8 w-8" />
+              <SALogo className="h-8 w-8" />
               <span className="text-white font-bold text-lg">
                 SA IS A MOVIE
               </span>
