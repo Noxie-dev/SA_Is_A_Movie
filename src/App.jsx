@@ -108,7 +108,7 @@ function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen saisa-bg text-white">
+    <div className="min-h-screen saisa-bg text-white flex flex-col">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#0A0A2A]/80 backdrop-blur-sm border-b border-[#FFA500]/20">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -142,7 +142,7 @@ function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 relative overflow-hidden">
+      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 py-20 relative overflow-hidden">
         {/* Interactive Particle Background */}
         <ParticleBackground />
         
@@ -363,7 +363,7 @@ function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#FF66B2] text-center py-8">
+      <footer className="bg-[#FF66B2] text-center py-8 mt-auto">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">

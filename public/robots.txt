@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://saisamovie.co.za/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /admin
+
+# Allow all other content
+Allow: /blog/
+Allow: /about
+Allow: /contact
+Allow: /trending
+Allow: /privacy
+Allow: /terms

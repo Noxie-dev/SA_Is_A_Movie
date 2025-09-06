@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import SALogo from './SALogo';
 import AuthButton from './AuthButton';
 
-const BlogLayout = ({ children }) => {
+const Layout = ({ children, showParticleBackground = false }) => {
   return (
-    <div className="min-h-screen saisa-bg text-white">
+    <div className="min-h-screen saisa-bg text-white flex flex-col">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#0A0A2A]/80 backdrop-blur-sm border-b border-[#FFA500]/20">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -40,12 +40,12 @@ const BlogLayout = ({ children }) => {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-20">
+      <main className="pt-20 flex-1">
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#FF66B2] text-center py-8">
+      <footer className="bg-[#FF66B2] text-center py-8 mt-auto">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
@@ -71,5 +71,4 @@ const BlogLayout = ({ children }) => {
   );
 };
 
-export default BlogLayout;
-
+export default Layout;
