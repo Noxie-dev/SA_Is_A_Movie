@@ -190,3 +190,4 @@ Your Netlify site is now connected to Contentful! Here's what happens next:
 
 Happy content managing! 🚀
 
+

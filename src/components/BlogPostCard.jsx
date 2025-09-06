@@ -81,3 +81,4 @@ const BlogPostCard = ({ post }) => {
 };
 
 export default BlogPostCard;
+

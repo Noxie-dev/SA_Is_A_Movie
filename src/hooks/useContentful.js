@@ -171,3 +171,4 @@ export const useSearch = (query, contentType = null) => {
   return { results, loading, error };
 };
 
+

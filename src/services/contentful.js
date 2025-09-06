@@ -106,3 +106,4 @@ export const searchEntries = async (query, contentType = null) => {
 
 export default client;
 
+

@@ -187,3 +187,4 @@ If you encounter issues:
 3. Consult the Auth0 documentation
 4. Check the browser console for client-side errors
 
+

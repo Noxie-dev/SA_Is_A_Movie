@@ -60,3 +60,4 @@ const BlogLayout = ({ children }) => {
 };
 
 export default BlogLayout;
+

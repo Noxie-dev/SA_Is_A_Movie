@@ -228,3 +228,4 @@ const client = createClient({
 5. Configure Netlify auto-deployments
 6. Start managing your content through Contentful!
 
+

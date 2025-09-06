@@ -187,3 +187,4 @@ const BlogPost = ({ post }) => {
 };
 
 export default BlogPost;
+
