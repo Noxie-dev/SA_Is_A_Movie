@@ -2,8 +2,8 @@ import { createClient } from 'contentful';
 
 // Contentful client configuration
 const client = createClient({
-  space: process.env.VITE_CONTENTFUL_SPACE_ID || 'your-space-id',
-  accessToken: process.env.VITE_CONTENTFUL_ACCESS_TOKEN || 'your-access-token',
+  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID || 'your-space-id',
+  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN || 'your-access-token',
   environment: 'master', // or your environment name
 });
 
