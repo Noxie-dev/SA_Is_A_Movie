@@ -22,20 +22,16 @@ export default defineConfig({
         manualChunks: (id) => {
           // Vendor chunks for better caching
           if (id.includes('node_modules')) {
-            // React core
-            if (id.includes('react/') && !id.includes('react-dom')) {
-              return 'react-core';
-            }
-            // React DOM
-            if (id.includes('react-dom')) {
-              return 'react-dom';
+            // Keep React and React-DOM together to avoid conflicts
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'react-vendor';
             }
             // React Router
             if (id.includes('react-router')) {
               return 'react-router';
             }
-            // Auth0
-            if (id.includes('@auth0')) {
+            // Clerk authentication
+            if (id.includes('@clerk')) {
               return 'auth-vendor';
             }
             // Radix UI components
