@@ -41,19 +41,11 @@
 # Functions configuration
 functions = "netlify/functions"
 
-# Admin route redirect for Decap CMS with role-based access
+# Admin route redirect for Decap CMS
 [[redirects]]
   from = "/admin"
   to = "/admin/"
   status = 301
-  conditions = {Role = ["admin", "editor"]}
-
-# Block unauthorized access to admin
-[[redirects]]
-  from = "/admin/*"
-  to = "/login"
-  status = 401
-  conditions = {Role = ["!admin", "!editor"]}
 
 # SPA fallback for React app (exclude admin routes)
 [[redirects]]
