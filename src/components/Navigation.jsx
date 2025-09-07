@@ -70,7 +70,7 @@ const Navigation = () => {
             </Link>
           ))}
           
-          {/* Dashboard link for authenticated users */}
+          {/* Dashboard and CMS links for authenticated users */}
           <SignedIn>
             <Link
               to="/dashboard"
@@ -82,6 +82,24 @@ const Navigation = () => {
             >
               Dashboard
               {isActive('/dashboard') && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-[#FFA500]/10 rounded-lg border border-[#FFA500]/30"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+            </Link>
+            <Link
+              to="/cms"
+              className={`relative px-3 py-2 rounded-lg transition-all duration-300 ${
+                isActive('/cms')
+                  ? 'text-[#FFA500] font-semibold'
+                  : 'text-white hover:text-[#FFA500]'
+              }`}
+            >
+              CMS
+              {isActive('/cms') && (
                 <motion.div
                   layoutId="activeTab"
                   className="absolute inset-0 bg-[#FFA500]/10 rounded-lg border border-[#FFA500]/30"
