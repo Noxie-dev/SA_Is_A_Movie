@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
 import { 
-  Plus, 
-  Edit, 
-  Trash2, 
   Save, 
   Eye, 
-  Calendar,
-  Tag,
-  Image as ImageIcon,
   FileText,
   Settings
 } from 'lucide-react';
@@ -47,20 +38,18 @@ const CMSAdmin = () => {
   if (!hasAccess) {
     return (
       <div className="min-h-screen saisa-bg flex items-center justify-center">
-        <Card className="bg-[#0A0A2A]/80 border-[#FFA500]/30 max-w-md">
-          <CardContent className="p-8 text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">Access Denied</h2>
-            <p className="text-gray-300 mb-6">
-              You don't have permission to access the CMS. Contact an administrator for access.
-            </p>
-            <Button 
-              onClick={() => window.location.href = '/'}
-              className="saisa-bg-yellow text-black hover:bg-yellow-300"
-            >
-              Return to Site
-            </Button>
-          </CardContent>
-        </Card>
+        <div className="bg-[#0A0A2A]/80 border border-[#FFA500]/30 rounded-lg max-w-md p-8 text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Access Denied</h2>
+          <p className="text-gray-300 mb-6">
+            You don't have permission to access the CMS. Contact an administrator for access.
+          </p>
+          <Button 
+            onClick={() => window.location.href = '/'}
+            className="saisa-bg-yellow text-black hover:bg-yellow-300"
+          >
+            Return to Site
+          </Button>
+        </div>
       </div>
     );
   }
@@ -97,65 +86,56 @@ const CMSAdmin = () => {
   };
 
   const TrendingForm = () => (
-    <Card className="bg-[#0A0A2A]/50 border-[#FFA500]/30">
-      <CardHeader>
-        <CardTitle className="saisa-text-yellow">Create Trending Story</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
+    <div className="bg-[#0A0A2A]/50 border border-[#FFA500]/30 rounded-lg p-6">
+      <h3 className="text-xl font-bold saisa-text-yellow mb-6">Create Trending Story</h3>
+      
+      <div className="space-y-4">
         <div>
-          <label className="text-white text-sm font-medium">Title</label>
+          <label className="text-white text-sm font-medium block mb-2">Title</label>
           <Input 
             placeholder="Enter story title"
-            className="bg-[#0A0A2A] border-[#FFA500]/30 text-white"
+            className="bg-[#0A0A2A] border-[#FFA500]/30 text-white w-full"
           />
         </div>
         
         <div>
-          <label className="text-white text-sm font-medium">Description</label>
+          <label className="text-white text-sm font-medium block mb-2">Description</label>
           <Textarea 
             placeholder="Enter story description"
-            className="bg-[#0A0A2A] border-[#FFA500]/30 text-white"
+            className="bg-[#0A0A2A] border-[#FFA500]/30 text-white w-full"
           />
         </div>
         
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="text-white text-sm font-medium">Category</label>
-            <Select>
-              <SelectTrigger className="bg-[#0A0A2A] border-[#FFA500]/30 text-white">
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="music">Music</SelectItem>
-                <SelectItem value="scandal">Scandal</SelectItem>
-                <SelectItem value="celebrity">Celebrity</SelectItem>
-                <SelectItem value="culture">Culture</SelectItem>
-              </SelectContent>
-            </Select>
+            <label className="text-white text-sm font-medium block mb-2">Category</label>
+            <select className="bg-[#0A0A2A] border border-[#FFA500]/30 text-white rounded-md px-3 py-2 w-full">
+              <option value="">Select category</option>
+              <option value="music">Music</option>
+              <option value="scandal">Scandal</option>
+              <option value="celebrity">Celebrity</option>
+              <option value="culture">Culture</option>
+            </select>
           </div>
           
           <div>
-            <label className="text-white text-sm font-medium">Color Theme</label>
-            <Select>
-              <SelectTrigger className="bg-[#0A0A2A] border-[#FFA500]/30 text-white">
-                <SelectValue placeholder="Select color" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="saisa-text-blue">Blue</SelectItem>
-                <SelectItem value="saisa-text-pink">Pink</SelectItem>
-                <SelectItem value="saisa-text-yellow">Yellow</SelectItem>
-                <SelectItem value="saisa-text-red">Red</SelectItem>
-              </SelectContent>
-            </Select>
+            <label className="text-white text-sm font-medium block mb-2">Color Theme</label>
+            <select className="bg-[#0A0A2A] border border-[#FFA500]/30 text-white rounded-md px-3 py-2 w-full">
+              <option value="">Select color</option>
+              <option value="saisa-text-blue">Blue</option>
+              <option value="saisa-text-pink">Pink</option>
+              <option value="saisa-text-yellow">Yellow</option>
+              <option value="saisa-text-red">Red</option>
+            </select>
           </div>
         </div>
         
         <div>
-          <label className="text-white text-sm font-medium">Content</label>
+          <label className="text-white text-sm font-medium block mb-2">Content</label>
           <Textarea 
             placeholder="Write your story content in Markdown..."
             rows={8}
-            className="bg-[#0A0A2A] border-[#FFA500]/30 text-white"
+            className="bg-[#0A0A2A] border-[#FFA500]/30 text-white w-full"
           />
         </div>
         
@@ -175,8 +155,8 @@ const CMSAdmin = () => {
             Preview
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 
   return (
@@ -189,9 +169,9 @@ const CMSAdmin = () => {
               <h1 className="text-2xl font-bold saisa-text-yellow">Content Management System</h1>
               <p className="text-gray-300">Welcome back, {user?.firstName || 'Admin'}</p>
             </div>
-            <Badge className="bg-[#FFA500] text-black">
+            <span className="bg-[#FFA500] text-black px-3 py-1 rounded-full text-sm font-medium">
               {user?.publicMetadata?.role || 'Admin'}
-            </Badge>
+            </span>
           </div>
         </div>
       </div>
@@ -224,24 +204,16 @@ const CMSAdmin = () => {
         >
           {activeTab === 'trending' && <TrendingForm />}
           {activeTab === 'about' && (
-            <Card className="bg-[#0A0A2A]/50 border-[#FFA500]/30">
-              <CardHeader>
-                <CardTitle className="saisa-text-yellow">About Section</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300">About section editor coming soon...</p>
-              </CardContent>
-            </Card>
+            <div className="bg-[#0A0A2A]/50 border border-[#FFA500]/30 rounded-lg p-6">
+              <h3 className="text-xl font-bold saisa-text-yellow mb-4">About Section</h3>
+              <p className="text-gray-300">About section editor coming soon...</p>
+            </div>
           )}
           {activeTab === 'settings' && (
-            <Card className="bg-[#0A0A2A]/50 border-[#FFA500]/30">
-              <CardHeader>
-                <CardTitle className="saisa-text-yellow">Site Settings</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300">Site settings editor coming soon...</p>
-              </CardContent>
-            </Card>
+            <div className="bg-[#0A0A2A]/50 border border-[#FFA500]/30 rounded-lg p-6">
+              <h3 className="text-xl font-bold saisa-text-yellow mb-4">Site Settings</h3>
+              <p className="text-gray-300">Site settings editor coming soon...</p>
+            </div>
           )}
         </motion.div>
       </div>
