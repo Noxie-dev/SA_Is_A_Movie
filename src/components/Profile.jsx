@@ -1,43 +1,11 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import LogoutButton from "./LogoutButton";
+import { useClerkAuth } from "@/hooks/useClerkAuth";
 
 const Profile = () => {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-  const [userMetadata, setUserMetadata] = useState(null);
-
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = import.meta.env.VITE_AUTH0_DOMAIN;
-
-      try {
-        const accessToken = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-            scope: "read:current_user",
-          },
-        });
-
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        const { user_metadata } = await metadataResponse.json();
-
-        setUserMetadata(user_metadata);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-
-    getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+  const { user, isAuthenticated, isLoading } = useClerkAuth();
 
   if (isLoading) {
     return (
@@ -60,15 +28,15 @@ const Profile = () => {
             <Avatar className="h-8 w-8">
               <AvatarImage src={user?.picture} alt={user?.name} />
               <AvatarFallback className="bg-[#FFA500] text-black font-bold">
-                {user?.name?.charAt(0) || 'U'}
+                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </AvatarFallback>
             </Avatar>
             <div className="text-sm">
               <div className="text-white font-semibold">{user?.name}</div>
               <div className="text-gray-400 text-xs">{user?.email}</div>
-              {userMetadata && Object.keys(userMetadata).length > 0 && (
+              {user?.metadata && Object.keys(user.metadata).length > 0 && (
                 <div className="text-[#FFA500] text-xs mt-1">
-                  Metadata: {Object.keys(userMetadata).length} items
+                  Metadata: {Object.keys(user.metadata).length} items
                 </div>
               )}
             </div>

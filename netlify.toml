@@ -7,14 +7,23 @@
   NODE_VERSION = "22"
   NODE_ENV = "production"
   NPM_FLAGS = "--version"
+  # Site URL for CMS configuration (set this in Netlify dashboard)
+  SITE_URL = "https://saisamovie.netlify.app"
+  # Clerk authentication (set these in Netlify dashboard)
+  # VITE_CLERK_PUBLISHABLE_KEY = "your-clerk-publishable-key"
+  # CLERK_SECRET_KEY = "your-clerk-secret-key"
+  # GitHub integration (set these in Netlify dashboard)
+  # GITHUB_OWNER = "your-github-username"
+  # GITHUB_REPO = "your-repo-name"
+  # GITHUB_TOKEN = "your-github-token"
   # Contentful environment variables (set these in Netlify dashboard)
   # VITE_CONTENTFUL_SPACE_ID = "your-space-id"
   # VITE_CONTENTFUL_ACCESS_TOKEN = "your-access-token"
-  # Secrets scanning configuration - ignore Auth0 env vars as they're expected in client-side code
-  SECRETS_SCAN_OMIT_KEYS = "VITE_AUTH0_DOMAIN,VITE_AUTH0_CLIENT_ID,AUTH0_CLIENT_ID"
+  # Secrets scanning configuration - ignore public tokens and site URLs
+  SECRETS_SCAN_OMIT_KEYS = "VITE_CONTENTFUL_SPACE_ID,VITE_CONTENTFUL_ACCESS_TOKEN,VITE_CLERK_PUBLISHABLE_KEY,SITE_URL"
 
-# Configure secrets scanning to ignore Auth0 environment variables
-# These are expected to be in the build output for client-side authentication
+# Configure secrets scanning to ignore public environment variables
+# These are expected to be in the build output for client-side functionality
 [build.processing]
   skip_processing = false
 

@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import SALogo from './components/SALogo';
 import ParticleBackground from './components/ParticleBackground';
 import AuthButton from './components/AuthButton';
+import Navigation from './components/Navigation';
+import ProtectedRoute from './components/ProtectedRoute';
 import { lazy, Suspense } from 'react';
 import './App.css';
 
@@ -16,6 +18,7 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const TrendingPage = lazy(() => import('./pages/TrendingPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const TrendingStories = lazy(() => import('./components/TrendingStories'));
 const RecentPosts = lazy(() => import('./components/RecentPosts'));
 
@@ -96,6 +99,20 @@ function App() {
             </Suspense>
           } 
         />
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+                </div>
+              }>
+                <DashboardPage />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
     </Router>
   );
@@ -111,37 +128,7 @@ function HomePage() {
   return (
     <div className="min-h-screen saisa-bg text-white flex flex-col">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#0A0A2A]/80 backdrop-blur-sm border-b border-[#FFA500]/20">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-3">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center space-x-3"
-            >
-              <SALogo className="h-10 w-10" />
-              <span className="text-xl font-bold">
-                SA IS A <span className="saisa-text-red">MOVIE</span>
-              </span>
-            </motion.div>
-          </Link>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:flex items-center space-x-6"
-          >
-            <Link to="/" className="hover:text-[#FFA500] transition-colors">Home</Link>
-            <Link to="/blog" className="hover:text-[#FFA500] transition-colors">Blog</Link>
-            <Link to="/trending" className="hover:text-[#FFA500] transition-colors">Trending</Link>
-            <Link to="/about" className="hover:text-[#FFA500] transition-colors">About</Link>
-            <Link to="/contact" className="hover:text-[#FFA500] transition-colors">Contact</Link>
-            <AuthButton />
-          </motion.div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="flex-1 flex flex-col items-center justify-center text-center px-6 py-20 relative overflow-hidden">

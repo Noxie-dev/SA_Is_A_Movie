@@ -42,7 +42,7 @@ else {
 ## 🚀 **User Experience**
 
 ### **For New Users**
-1. **Visit the landing page** at `https://saisamovie.netlify.app/`
+1. **Visit the landing page** at your deployed site URL
 2. **Click "Sign Up"** in the header navigation
 3. **Fill out the form** with their details
 4. **Get automatic role assignment** based on email
@@ -114,3 +114,4 @@ else {
 ---
 
 **Need Help?** Check the Netlify Identity documentation: [netlify.com/docs/identity](https://docs.netlify.com/identity/)
+

@@ -6,9 +6,9 @@ backend:
 media_folder: "public/uploads" # Media files will be stored in the repo under public/uploads/
 public_folder: "/uploads" # The src attribute for uploaded media will begin with /uploads
 
-# Site URL for previews
-site_url: https://saisamovie.netlify.app
-display_url: https://saisamovie.netlify.app
+# Site URL for previews (will be set via environment variable)
+site_url: ${SITE_URL}
+display_url: ${SITE_URL}
 
 # Collections for different content types
 collections:
