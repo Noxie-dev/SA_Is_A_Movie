@@ -229,3 +229,4 @@ const client = createClient({
 6. Start managing your content through Contentful!
 
 
+

@@ -34,3 +34,4 @@ echo "🔍 You can now run Auth0 CLI commands:"
 echo "   a0deploy export --config_file auth0-cli-config.json --format yaml --output_folder auth0-export"
 
 
+

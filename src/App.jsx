@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Play, TrendingUp, Users, Calendar, Instagram, Twitter, Facebook } from "lucide-react";
+import { Play, TrendingUp, Users, Calendar, Instagram, Twitter, Facebook, Music } from "lucide-react";
 import { Link } from "react-router-dom";
 import SALogo from './components/SALogo';
 import ParticleBackground from './components/ParticleBackground';
+import AuthButton from './components/AuthButton';
 import { lazy, Suspense } from 'react';
 import './App.css';
 
@@ -137,6 +138,7 @@ function HomePage() {
             <Link to="/trending" className="hover:text-[#FFA500] transition-colors">Trending</Link>
             <Link to="/about" className="hover:text-[#FFA500] transition-colors">About</Link>
             <Link to="/contact" className="hover:text-[#FFA500] transition-colors">Contact</Link>
+            <AuthButton />
           </motion.div>
         </div>
       </nav>
@@ -318,24 +320,45 @@ function HomePage() {
             
             <div className="flex flex-col sm:flex-row justify-center gap-6 mb-12">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button className="saisa-bg-yellow text-black font-bold text-lg px-8 py-4 rounded-2xl neon-glow hover:bg-yellow-300 transition-all duration-300 min-w-[160px]">
-                  <Instagram className="mr-2 h-5 w-5" />
-                  Instagram
-                </Button>
+                <a 
+                  href="https://www.instagram.com/sa_isamovie?igsh=aTcyNnkzajJqejk2" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button className="saisa-bg-yellow text-black font-bold text-lg px-8 py-4 rounded-2xl neon-glow hover:bg-yellow-300 transition-all duration-300 min-w-[160px]">
+                    <Instagram className="mr-2 h-5 w-5" />
+                    Instagram
+                  </Button>
+                </a>
               </motion.div>
               
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button className="saisa-bg-yellow text-black font-bold text-lg px-8 py-4 rounded-2xl neon-glow hover:bg-yellow-300 transition-all duration-300 min-w-[160px]">
-                  <Twitter className="mr-2 h-5 w-5" />
-                  Twitter
-                </Button>
+                <a 
+                  href="https://www.facebook.com/saisamovie/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button className="saisa-bg-yellow text-black font-bold text-lg px-8 py-4 rounded-2xl neon-glow hover:bg-yellow-300 transition-all duration-300 min-w-[160px]">
+                    <Facebook className="mr-2 h-5 w-5" />
+                    Facebook
+                  </Button>
+                </a>
               </motion.div>
               
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button className="saisa-bg-yellow text-black font-bold text-lg px-8 py-4 rounded-2xl neon-glow hover:bg-yellow-300 transition-all duration-300 min-w-[160px]">
-                  <Facebook className="mr-2 h-5 w-5" />
-                  Facebook
-                </Button>
+                <a 
+                  href="https://www.tiktok.com/@sa_isamovie" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button className="saisa-bg-yellow text-black font-bold text-lg px-8 py-4 rounded-2xl neon-glow hover:bg-yellow-300 transition-all duration-300 min-w-[160px]">
+                    <Music className="mr-2 h-5 w-5" />
+                    TikTok
+                  </Button>
+                </a>
               </motion.div>
             </div>
 
