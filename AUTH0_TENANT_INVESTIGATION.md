@@ -6,7 +6,7 @@ Based on your code, here's what I found about your Auth0 tenant setup:
 
 ### **Tenant Information**
 - **Domain**: `[YOUR_AUTH0_DOMAIN]`
-- **Client ID**: `EuWZO7zJRvldikvu4wwjDeLoL7HKX4s5`
+- **Client ID**: `[YOUR_AUTH0_CLIENT_ID]`
 - **Environment**: Development (indicated by "dev-" prefix)
 
 ### **Application Configuration**
@@ -117,7 +117,7 @@ You need one of these for CLI access:
 ```json
 {
   "AUTH0_DOMAIN": "[YOUR_AUTH0_DOMAIN]",
-  "AUTH0_CLIENT_ID": "EuWZO7zJRvldikvu4wwjDeLoL7HKX4s5",
+  "AUTH0_CLIENT_ID": "[YOUR_AUTH0_CLIENT_ID]",
   "AUTH0_CLIENT_SECRET": "your-client-secret-here"
 }
 ```

@@ -8,7 +8,6 @@
   NODE_ENV = "production"
   NPM_FLAGS = "--version"
   # Site URL for CMS configuration (set this in Netlify dashboard)
-  SITE_URL = "https://saisamovie.netlify.app"
   # Clerk authentication (set these in Netlify dashboard)
   # VITE_CLERK_PUBLISHABLE_KEY = "your-clerk-publishable-key"
   # CLERK_SECRET_KEY = "your-clerk-secret-key"
