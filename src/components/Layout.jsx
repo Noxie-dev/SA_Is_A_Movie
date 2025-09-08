@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SALogo from './SALogo';
+import FooterLogo from './FooterLogo';
 import AuthButton from './AuthButton';
 
 const Layout = ({ children, showParticleBackground = false }) => {
@@ -49,7 +50,7 @@ const Layout = ({ children, showParticleBackground = false }) => {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <SALogo className="h-8 w-8" />
+              <FooterLogo className="h-8 w-8" />
               <span className="text-white font-bold text-lg">
                 SA IS A MOVIE
               </span>
