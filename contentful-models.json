@@ -93,6 +93,48 @@
           "type": "Date",
           "localized": false,
           "required": true
+        },
+        {
+          "id": "author",
+          "name": "Author",
+          "type": "Object",
+          "localized": false,
+          "required": true
+        },
+        {
+          "id": "media",
+          "name": "Media Files",
+          "type": "Array",
+          "items": {
+            "type": "Link",
+            "linkType": "Asset"
+          },
+          "localized": false,
+          "required": false
+        },
+        {
+          "id": "copyrightChecked",
+          "name": "Copyright Checked",
+          "type": "Boolean",
+          "localized": false,
+          "required": false
+        },
+        {
+          "id": "copyrightStatus",
+          "name": "Copyright Status",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "in": [
+                "pending",
+                "approved",
+                "flagged",
+                "rejected"
+              ]
+            }
+          ]
         }
       ]
     },

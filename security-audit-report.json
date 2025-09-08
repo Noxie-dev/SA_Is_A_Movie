@@ -1,0 +1,384 @@
+{
+  "timestamp": "2025-09-08T19:16:21.609Z",
+  "summary": {
+    "errors": 13,
+    "warnings": 21,
+    "info": 4
+  },
+  "issues": [
+    {
+      "timestamp": "2025-09-08T19:16:21.447Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/components/AdOptimizationDashboard.jsx",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.449Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/components/AdOptimizedBlogPost.jsx",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.484Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/components/PrivacyConsent.jsx",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.508Z",
+      "level": "ERROR",
+      "message": "Potential contentfulTokens found in src/components/ui/context-menu.jsx",
+      "details": {
+        "matches": [
+          "--radix-context-menu-content-transform-orig",
+          "--radix-context-menu-content-available-heig",
+          "--radix-context-menu-content-transform-orig"
+        ],
+        "totalMatches": 3
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.511Z",
+      "level": "ERROR",
+      "message": "Potential contentfulTokens found in src/components/ui/dropdown-menu.jsx",
+      "details": {
+        "matches": [
+          "--radix-dropdown-menu-content-available-hei",
+          "--radix-dropdown-menu-content-transform-ori",
+          "--radix-dropdown-menu-content-transform-ori"
+        ],
+        "totalMatches": 3
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.515Z",
+      "level": "ERROR",
+      "message": "Potential contentfulTokens found in src/components/ui/hover-card.jsx",
+      "details": {
+        "matches": [
+          "--radix-hover-card-content-transform-origin"
+        ],
+        "totalMatches": 1
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.549Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/hooks/useAdOptimization.js",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.555Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/lib/adaptiveAlgorithm.js",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.557Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/lib/contentOptimizer.js",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.561Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/lib/privacyEngagement.js",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.563Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/lib/rewardCalculator.js",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.576Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in src/pages/OptimizedBlogPage.jsx",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.600Z",
+      "level": "ERROR",
+      "message": "Potential awsKeys found in netlify/functions/ad-optimization.js",
+      "details": {
+        "matches": [
+          "========================================",
+          "========================================"
+        ],
+        "totalMatches": 2
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "timestamp": "2025-09-08T19:16:21.431Z",
+      "level": "WARNING",
+      "message": "VITE_CONTENTFUL_SPACE_ID is not set",
+      "details": {
+        "type": "client",
+        "suggestion": "Set in .env file"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.432Z",
+      "level": "WARNING",
+      "message": "VITE_CONTENTFUL_ACCESS_TOKEN is not set",
+      "details": {
+        "type": "client",
+        "suggestion": "Set in .env file"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.432Z",
+      "level": "WARNING",
+      "message": "VITE_CLERK_PUBLISHABLE_KEY is not set",
+      "details": {
+        "type": "client",
+        "suggestion": "Set in .env file"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.433Z",
+      "level": "WARNING",
+      "message": "VITE_GOOGLE_VISION_API_KEY is not set",
+      "details": {
+        "type": "client",
+        "suggestion": "Set in .env file"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.433Z",
+      "level": "WARNING",
+      "message": "VITE_GEMINI_API_KEY is not set",
+      "details": {
+        "type": "client",
+        "suggestion": "Set in .env file"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.433Z",
+      "level": "WARNING",
+      "message": "VITE_GOOGLE_API_KEY is not set",
+      "details": {
+        "type": "client",
+        "suggestion": "Set in .env file"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.433Z",
+      "level": "WARNING",
+      "message": "CLERK_SECRET_KEY is not set",
+      "details": {
+        "type": "server",
+        "suggestion": "Set in Netlify dashboard"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.433Z",
+      "level": "WARNING",
+      "message": "GITHUB_TOKEN is not set",
+      "details": {
+        "type": "server",
+        "suggestion": "Set in Netlify dashboard"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.433Z",
+      "level": "WARNING",
+      "message": "GITHUB_OWNER is not set",
+      "details": {
+        "type": "server",
+        "suggestion": "Set in Netlify dashboard"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.433Z",
+      "level": "WARNING",
+      "message": "GITHUB_REPO is not set",
+      "details": {
+        "type": "server",
+        "suggestion": "Set in Netlify dashboard"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.435Z",
+      "level": "WARNING",
+      "message": "Environment variables found in netlify.toml",
+      "details": {
+        "suggestion": "Move sensitive variables to Netlify dashboard"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.436Z",
+      "level": "WARNING",
+      "message": "Missing entries in .gitignore",
+      "details": {
+        "missing": [
+          ".env.*.local"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.590Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in src/test/blog-posting.test.js",
+      "details": {
+        "variable": "VITE_CONTENTFUL_SPACE_ID",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.602Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/gemini-proxy.js",
+      "details": {
+        "variable": "VITE_GEMINI_API_KEY",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.606Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/post-story-to-blog.js",
+      "details": {
+        "variable": "VITE_CONTENTFUL_SPACE_ID",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.606Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/post-story-to-blog.js",
+      "details": {
+        "variable": "VITE_CONTENTFUL_ACCESS_TOKEN",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.606Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/post-story-to-blog.js",
+      "details": {
+        "variable": "VITE_CONTENTFUL_SPACE_ID",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.606Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/post-story-to-blog.js",
+      "details": {
+        "variable": "VITE_CONTENTFUL_ACCESS_TOKEN",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.606Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/post-story-to-blog.js",
+      "details": {
+        "variable": "VITE_CONTENTFUL_SPACE_ID",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.606Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/post-story-to-blog.js",
+      "details": {
+        "variable": "VITE_CONTENTFUL_ACCESS_TOKEN",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.609Z",
+      "level": "WARNING",
+      "message": "Inconsistent environment variable usage in netlify/functions/vision-copyright-check.js",
+      "details": {
+        "variable": "VITE_GOOGLE_VISION_API_KEY",
+        "suggestion": "Use import.meta.env for client-side variables"
+      }
+    }
+  ],
+  "info": [
+    {
+      "timestamp": "2025-09-08T19:16:21.422Z",
+      "level": "INFO",
+      "message": "Checking environment variables...",
+      "details": null
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.434Z",
+      "level": "INFO",
+      "message": "Checking Netlify configuration...",
+      "details": null
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.436Z",
+      "level": "INFO",
+      "message": "Checking .gitignore configuration...",
+      "details": null
+    },
+    {
+      "timestamp": "2025-09-08T19:16:21.436Z",
+      "level": "INFO",
+      "message": "Scanning source code for security issues...",
+      "details": null
+    }
+  ]
+}
