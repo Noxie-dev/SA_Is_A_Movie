@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Check, X, AlertTriangle, Loader2, ChevronDown, ChevronUp, RefreshCw, FileText, Shield, Search, Zap } from 'lucide-react';
 
-const ComplianceChecker = ({ content, title, metaDescription, images, onPublish }) => {
+const ComplianceChecker = ({ content, title, metaDescription, images, sourceLinks, onPublish }) => {
   const [isChecking, setIsChecking] = useState(false);
   const [complianceResults, setComplianceResults] = useState(null);
   const [expandedSections, setExpandedSections] = useState({});
@@ -20,7 +20,7 @@ const ComplianceChecker = ({ content, title, metaDescription, images, onPublish 
       const response = await fetch('/.netlify/functions/complianceEngine', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content, title, metaDescription, images })
+        body: JSON.stringify({ content, title, metaDescription, images, sourceLinks })
       });
       
       // Handle non-200 responses
@@ -41,7 +41,7 @@ const ComplianceChecker = ({ content, title, metaDescription, images, onPublish 
     } finally {
       setIsChecking(false);
     }
-  }, [content, title, metaDescription, images]); // Dependencies for the check logic
+  }, [content, title, metaDescription, images, sourceLinks]); // Dependencies for the check logic
 
   // Auto-check when content changes (debounced)
   useEffect(() => {
@@ -51,7 +51,7 @@ const ComplianceChecker = ({ content, title, metaDescription, images, onPublish 
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [content, title, metaDescription, images, autoCheckEnabled, runComplianceCheck]); // Complete dependency array
+  }, [content, title, metaDescription, images, sourceLinks, autoCheckEnabled, runComplianceCheck]); // Complete dependency array
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({

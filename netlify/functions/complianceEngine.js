@@ -75,7 +75,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const { content, title, metaDescription, images } = JSON.parse(event.body);
+    const { content, title, metaDescription, images, sourceLinks } = JSON.parse(event.body);
 
     // Basic input validation
     if (!content || typeof content !== 'string' || content.trim() === '') {
@@ -95,9 +95,9 @@ exports.handler = async (event, context) => {
     // Run all checks in parallel for speed
     const [grammarCheck, adsenseCheck, factCheck, seoCheck] = await Promise.all([
       checkGrammarAndReadability(content),
-      checkAdsenseCompliance(content, title, metaDescription, images),
-      checkFactsAndCredibility(content, title),
-      checkSEOOptimization(content, title, metaDescription)
+      checkAdsenseCompliance(content, title, metaDescription, images, sourceLinks),
+      checkFactsAndCredibility(content, title, sourceLinks),
+      checkSEOOptimization(content, title, metaDescription, sourceLinks)
     ]);
 
     // Calculate overall score
@@ -225,7 +225,7 @@ async function checkGrammarAndReadability(content) {
 }
 
 // AdSense Compliance Check
-async function checkAdsenseCompliance(content, title, metaDescription, images) {
+async function checkAdsenseCompliance(content, title, metaDescription, images, sourceLinks) {
   const result = {
     status: 'pending',
     score: 0,
@@ -309,7 +309,36 @@ async function checkAdsenseCompliance(content, title, metaDescription, images) {
       }
     }
 
-    // 6. Use Google Perspective API for content toxicity
+    // 6. Check source links for credibility
+    if (sourceLinks && sourceLinks.length > 0) {
+      const invalidLinks = sourceLinks.filter(link => !link.url || !isValidUrl(link.url));
+      if (invalidLinks.length > 0) {
+        result.warnings.push({
+          rule: 'INVALID_SOURCE_LINKS',
+          message: `${invalidLinks.length} source links have invalid URLs`,
+          severity: 'medium'
+        });
+      }
+      
+      // Check for credible sources
+      const credibleDomains = ['wikipedia.org', 'bbc.com', 'reuters.com', 'ap.org', 'npr.org', 'pbs.org'];
+      const hasCredibleSources = sourceLinks.some(link => 
+        credibleDomains.some(domain => link.url.includes(domain))
+      );
+      
+      if (!hasCredibleSources && sourceLinks.length > 0) {
+        result.suggestions = result.suggestions || [];
+        result.suggestions.push('Consider adding sources from credible news organizations or academic institutions');
+      }
+    } else {
+      result.warnings.push({
+        rule: 'NO_SOURCE_LINKS',
+        message: 'No source links provided. Consider adding references for credibility',
+        severity: 'low'
+      });
+    }
+
+    // 7. Use Google Perspective API for content toxicity
     const perspectiveResult = await checkContentToxicity(content);
     if (perspectiveResult.toxic) {
       result.violations.push({
@@ -349,7 +378,7 @@ async function checkAdsenseCompliance(content, title, metaDescription, images) {
 }
 
 // Fact Checking and Credibility
-async function checkFactsAndCredibility(content, title) {
+async function checkFactsAndCredibility(content, title, sourceLinks) {
   const result = {
     status: 'pending',
     score: 0,
@@ -360,6 +389,12 @@ async function checkFactsAndCredibility(content, title) {
   try {
     // Extract claims from content
     const claims = extractClaims(content);
+    
+    // Boost credibility score if source links are provided
+    let credibilityBoost = 0;
+    if (sourceLinks && sourceLinks.length > 0) {
+      credibilityBoost = Math.min(20, sourceLinks.length * 5); // Up to 20 points boost
+    }
     
     if (claims.length > 0) {
       // Check each claim using Google Fact Check API
@@ -375,24 +410,25 @@ async function checkFactsAndCredibility(content, title) {
       const verifiedClaims = factCheckResults.filter(r => r.verified).length;
       const falseClaims = factCheckResults.filter(r => r.rating === 'false').length;
       
+      let baseScore = 0;
       if (falseClaims > 0) {
         result.status = 'fail';
-        result.score = 0;
-        result.credibilityScore = 0;
+        baseScore = 0;
       } else if (verifiedClaims === factCheckResults.length) {
         result.status = 'pass';
-        result.score = 100;
-        result.credibilityScore = 100;
+        baseScore = 100;
       } else {
         result.status = 'warning';
-        result.score = 70;
-        result.credibilityScore = (verifiedClaims / factCheckResults.length) * 100;
+        baseScore = 70;
       }
+      
+      result.score = Math.min(100, baseScore + credibilityBoost);
+      result.credibilityScore = result.score;
     } else {
-      // No claims to verify
+      // No claims to verify, but still boost for having sources
       result.status = 'pass';
-      result.score = 100;
-      result.credibilityScore = 100;
+      result.score = Math.min(100, 80 + credibilityBoost);
+      result.credibilityScore = result.score;
     }
 
   } catch (error) {
@@ -405,7 +441,7 @@ async function checkFactsAndCredibility(content, title) {
 }
 
 // SEO Optimization Check
-async function checkSEOOptimization(content, title, metaDescription) {
+async function checkSEOOptimization(content, title, metaDescription, sourceLinks) {
   const result = {
     status: 'pending',
     score: 0,
@@ -444,10 +480,15 @@ async function checkSEOOptimization(content, title, metaDescription) {
       result.issues.push('Missing H2 headings for content structure');
     }
 
-    // Internal/external links
-    const linkCount = (content.match(/<a\s|\\[.*?\\]\\(/gi) || []).length;
-    if (linkCount < SEO_RULES.minLinks) {
-      result.suggestions.push(`Add more internal/external links for better SEO (minimum ${SEO_RULES.minLinks} recommended)`);
+    // Internal/external links (including source links)
+    const contentLinkCount = (content.match(/<a\s|\\[.*?\\]\\(/gi) || []).length;
+    const sourceLinkCount = sourceLinks ? sourceLinks.length : 0;
+    const totalLinkCount = contentLinkCount + sourceLinkCount;
+    
+    if (totalLinkCount < SEO_RULES.minLinks) {
+      result.suggestions.push(`Add more internal/external links for better SEO (minimum ${SEO_RULES.minLinks} recommended). You have ${totalLinkCount} links total.`);
+    } else if (sourceLinkCount > 0) {
+      result.suggestions.push(`Great! You have ${sourceLinkCount} source links which improve credibility and SEO.`);
     }
 
     // Calculate SEO score
@@ -475,6 +516,15 @@ async function checkSEOOptimization(content, title, metaDescription) {
 }
 
 // Helper Functions
+
+function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 
 function calculateReadability(text) {
   // Flesch Reading Ease Score

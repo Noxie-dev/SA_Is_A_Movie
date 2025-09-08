@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ComplianceChecker from './ComplianceChecker';
+import BlogPost from './BlogPost';
 
 // Example Blog Editor component showing how to integrate ComplianceChecker
 const BlogEditor = () => {
@@ -7,7 +8,9 @@ const BlogEditor = () => {
   const [title, setTitle] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
   const [images, setImages] = useState([]);
+  const [sourceLinks, setSourceLinks] = useState([]);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   const handlePublish = async (complianceResults) => {
     if (!complianceResults.canPublish) {
@@ -24,6 +27,7 @@ const BlogEditor = () => {
         content,
         metaDescription,
         images,
+        sourceLinks,
         complianceScore: complianceResults.score,
         publishedAt: new Date().toISOString()
       };
@@ -42,6 +46,7 @@ const BlogEditor = () => {
         setTitle('');
         setMetaDescription('');
         setImages([]);
+        setSourceLinks([]);
       } else {
         throw new Error('Failed to publish blog post');
       }
@@ -70,11 +75,68 @@ const BlogEditor = () => {
     ));
   };
 
+  const addSourceLink = () => {
+    const newLink = {
+      id: Date.now() + Math.random(),
+      url: '',
+      title: '',
+      description: ''
+    };
+    setSourceLinks(prev => [...prev, newLink]);
+  };
+
+  const updateSourceLink = (linkId, field, value) => {
+    setSourceLinks(prev => prev.map(link => 
+      link.id === linkId ? { ...link, [field]: value } : link
+    ));
+  };
+
+  const removeSourceLink = (linkId) => {
+    setSourceLinks(prev => prev.filter(link => link.id !== linkId));
+  };
+
+  const validateUrl = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Blog Editor</h1>
+    <div className="max-w-7xl mx-auto p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">Blog Editor</h1>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setShowPreview(!showPreview)}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              showPreview 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }`}
+          >
+            {showPreview ? 'Edit Mode' : 'Preview Mode'}
+          </button>
+        </div>
+      </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {showPreview ? (
+        <div className="bg-white rounded-lg shadow-lg">
+          <BlogPost
+            title={title || 'Untitled Blog Post'}
+            content={content || 'Start writing your blog post...'}
+            metaDescription={metaDescription}
+            images={images}
+            sourceLinks={sourceLinks}
+            publishedAt={new Date().toISOString()}
+            complianceScore={null}
+          />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Editor Section */}
         <div className="space-y-4">
           <div>
@@ -148,6 +210,90 @@ const BlogEditor = () => {
               </div>
             )}
           </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Source Links
+            </label>
+            <div className="space-y-3">
+              {sourceLinks.map((link, index) => (
+                <div key={link.id} className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-sm font-medium text-gray-700">Source Link #{index + 1}</h4>
+                    <button
+                      type="button"
+                      onClick={() => removeSourceLink(link.id)}
+                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        URL *
+                      </label>
+                      <input
+                        type="url"
+                        value={link.url}
+                        onChange={(e) => updateSourceLink(link.id, 'url', e.target.value)}
+                        className={`w-full px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          link.url && !validateUrl(link.url) ? 'border-red-300' : 'border-gray-300'
+                        }`}
+                        placeholder="https://example.com"
+                      />
+                      {link.url && !validateUrl(link.url) && (
+                        <p className="text-xs text-red-600 mt-1">Please enter a valid URL</p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        Title
+                      </label>
+                      <input
+                        type="text"
+                        value={link.title}
+                        onChange={(e) => updateSourceLink(link.id, 'title', e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Source title or publication name"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        Description
+                      </label>
+                      <textarea
+                        value={link.description}
+                        onChange={(e) => updateSourceLink(link.id, 'description', e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        rows="2"
+                        placeholder="Brief description of the source (optional)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              
+              <button
+                type="button"
+                onClick={addSourceLink}
+                className="w-full py-2 px-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-gray-400 hover:text-gray-700 transition-colors"
+              >
+                + Add Source Link
+              </button>
+              
+              {sourceLinks.length > 0 && (
+                <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-sm text-blue-800">
+                    <strong>Note:</strong> Source links will be displayed at the bottom of your blog post for transparency and credibility.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Compliance Checker Section */}
@@ -157,6 +303,7 @@ const BlogEditor = () => {
             title={title}
             metaDescription={metaDescription}
             images={images}
+            sourceLinks={sourceLinks}
             onPublish={handlePublish}
           />
         </div>
