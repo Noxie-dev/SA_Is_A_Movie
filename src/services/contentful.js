@@ -1,11 +1,21 @@
 import { createClient } from 'contentful';
 
-// Contentful client configuration
-const client = createClient({
-  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
-  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
-  environment: 'master', // or your environment name
-});
+// Create Contentful client only when environment variables are available
+const createContentfulClient = () => {
+  const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
+  const accessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
+  
+  if (!spaceId || !accessToken) {
+    console.warn('Contentful environment variables not configured');
+    return null;
+  }
+  
+  return createClient({
+    space: spaceId,
+    accessToken: accessToken,
+    environment: 'master', // or your environment name
+  });
+};
 
 // Content types
 export const CONTENT_TYPES = {
@@ -18,8 +28,8 @@ export const CONTENT_TYPES = {
 // Fetch trending stories
 export const getTrendingStories = async () => {
   try {
-    // Check if Contentful is configured
-    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+    const client = createContentfulClient();
+    if (!client) {
       console.warn('Contentful not configured - returning empty array');
       return [];
     }
@@ -39,8 +49,8 @@ export const getTrendingStories = async () => {
 // Fetch blog posts
 export const getBlogPosts = async (limit = 10) => {
   try {
-    // Check if Contentful is configured
-    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+    const client = createContentfulClient();
+    if (!client) {
       console.warn('Contentful not configured - returning empty array');
       return [];
     }
@@ -60,8 +70,8 @@ export const getBlogPosts = async (limit = 10) => {
 // Fetch hero content
 export const getHeroContent = async () => {
   try {
-    // Check if Contentful is configured
-    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+    const client = createContentfulClient();
+    if (!client) {
       console.warn('Contentful not configured - returning null');
       return null;
     }
@@ -80,8 +90,8 @@ export const getHeroContent = async () => {
 // Fetch settings
 export const getSettings = async () => {
   try {
-    // Check if Contentful is configured
-    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+    const client = createContentfulClient();
+    if (!client) {
       console.warn('Contentful not configured - returning null');
       return null;
     }
@@ -100,6 +110,12 @@ export const getSettings = async () => {
 // Fetch single entry by ID
 export const getEntryById = async (entryId) => {
   try {
+    const client = createContentfulClient();
+    if (!client) {
+      console.warn('Contentful not configured - returning null');
+      return null;
+    }
+    
     const response = await client.getEntry(entryId);
     return response;
   } catch (error) {
@@ -111,6 +127,12 @@ export const getEntryById = async (entryId) => {
 // Search entries
 export const searchEntries = async (query, contentType = null) => {
   try {
+    const client = createContentfulClient();
+    if (!client) {
+      console.warn('Contentful not configured - returning empty array');
+      return [];
+    }
+    
     const params = {
       query,
       limit: 20,
@@ -128,6 +150,7 @@ export const searchEntries = async (query, contentType = null) => {
   }
 };
 
-export default client;
+// Export the client creation function instead of a static client
+export default createContentfulClient;
 
 
