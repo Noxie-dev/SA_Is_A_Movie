@@ -6,12 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "build:analyze": "vite build --mode analyze",
     "preview": "vite preview",
+    "lint": "eslint .",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "optimize:images": "node scripts/optimize-images.js",
+    "performance:audit": "lighthouse http://localhost:5173 --output=html --output-path=./lighthouse-report.html",
+    "performance:ci": "lighthouse http://localhost:5173 --output=json --output-path=./lighthouse-report.json --chrome-flags='--headless'"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.46.1",
@@ -75,6 +79,8 @@
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.7",
     "vaul": "^1.1.2",
+    "vite-plugin-pwa": "^1.0.3",
+    "workbox-window": "^7.3.0",
     "zod": "^3.24.4"
   },
   "devDependencies": {

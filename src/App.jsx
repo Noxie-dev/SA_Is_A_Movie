@@ -9,6 +9,7 @@ import AuthButton from './components/AuthButton';
 import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
 import ConsentBanner from './components/ConsentBanner';
+import PerformanceLoader from './components/PerformanceLoader';
 import { lazy, Suspense } from 'react';
 import './App.css';
 
@@ -34,8 +35,8 @@ function App() {
           path="/blog/*" 
           element={
             <Suspense fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              <div className="min-h-screen flex items-center justify-center saisa-bg">
+                <PerformanceLoader type="spinner" size="xl" text="Loading blog..." />
               </div>
             }>
               <BlogPage />
@@ -46,8 +47,8 @@ function App() {
           path="/about" 
           element={
             <Suspense fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              <div className="min-h-screen flex items-center justify-center saisa-bg">
+                <PerformanceLoader type="spinner" size="xl" text="Loading..." />
               </div>
             }>
               <AboutPage />
@@ -58,8 +59,8 @@ function App() {
           path="/contact" 
           element={
             <Suspense fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              <div className="min-h-screen flex items-center justify-center saisa-bg">
+                <PerformanceLoader type="spinner" size="xl" text="Loading..." />
               </div>
             }>
               <ContactPage />
@@ -70,8 +71,8 @@ function App() {
           path="/trending" 
           element={
             <Suspense fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              <div className="min-h-screen flex items-center justify-center saisa-bg">
+                <PerformanceLoader type="spinner" size="xl" text="Loading..." />
               </div>
             }>
               <TrendingPage />
@@ -82,8 +83,8 @@ function App() {
           path="/privacy" 
           element={
             <Suspense fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              <div className="min-h-screen flex items-center justify-center saisa-bg">
+                <PerformanceLoader type="spinner" size="xl" text="Loading..." />
               </div>
             }>
               <PrivacyPage />
@@ -94,8 +95,8 @@ function App() {
           path="/terms" 
           element={
             <Suspense fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500]"></div>
+              <div className="min-h-screen flex items-center justify-center saisa-bg">
+                <PerformanceLoader type="spinner" size="xl" text="Loading..." />
               </div>
             }>
               <TermsPage />
@@ -245,13 +246,11 @@ function HomePage() {
       <Suspense fallback={
         <section className="py-20 bg-[#0A0A2A]">
           <div className="container mx-auto px-6 text-center">
-            <div className="animate-pulse">
-              <div className="h-12 bg-gray-700 rounded mb-8 max-w-md mx-auto"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-64 bg-gray-700 rounded-lg"></div>
-                ))}
-              </div>
+            <PerformanceLoader type="skeleton" className="max-w-md mx-auto" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+              {[1, 2, 3].map((i) => (
+                <PerformanceLoader key={i} type="skeleton" className="h-64 rounded-lg" />
+              ))}
             </div>
           </div>
         </section>
@@ -263,14 +262,12 @@ function HomePage() {
       <Suspense fallback={
         <section className="py-12 bg-[#0A0A2A]">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="animate-pulse">
-              <div className="h-8 bg-gray-700 rounded mb-4 max-w-xs mx-auto"></div>
-              <div className="h-4 bg-gray-700 rounded mb-8 max-w-md mx-auto"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-80 bg-gray-700 rounded-lg"></div>
-                ))}
-              </div>
+            <PerformanceLoader type="skeleton" className="max-w-xs mx-auto mb-4" />
+            <PerformanceLoader type="skeleton" className="max-w-md mx-auto mb-8" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <PerformanceLoader key={i} type="skeleton" className="h-80 rounded-lg" />
+              ))}
             </div>
           </div>
         </section>

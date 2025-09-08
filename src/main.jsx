@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import { ConsentProvider } from './context/ConsentContext'
 import './index.css'
 import App from './App.jsx'
+import './utils/serviceWorker.js'
 
 // Import your publishable key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY

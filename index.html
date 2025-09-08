@@ -2,6 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://clerk.dev" crossorigin />
+    <link rel="preconnect" href="https://api.clerk.dev" crossorigin />
+    
+    <!-- DNS prefetch for additional performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://clerk.dev" />
+    
+    <!-- Favicon and app icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3" />
@@ -10,11 +23,47 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
     <meta name="msapplication-TileImage" content="/favicon-32x32.png?v=3" />
     <meta name="msapplication-TileColor" content="#FF0000" />
+    
+    <!-- Viewport and meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="SA IS A MOVIE - Breaking down South Africa's hottest scandals, celebrity drama, and Amapiano events. Your source for entertainment news and culture." />
+    <meta name="keywords" content="South Africa, entertainment, celebrity news, Amapiano, scandals, drama, culture, SA news" />
+    <meta name="author" content="SA IS A MOVIE" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://saisamovie.com/" />
+    <meta property="og:title" content="SA IS A MOVIE - South African Entertainment & Culture" />
+    <meta property="og:description" content="Breaking down South Africa's hottest scandals, celebrity drama, and Amapiano events. Your source for entertainment news and culture." />
+    <meta property="og:image" content="/og-image.jpg" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://saisamovie.com/" />
+    <meta property="twitter:title" content="SA IS A MOVIE - South African Entertainment & Culture" />
+    <meta property="twitter:description" content="Breaking down South Africa's hottest scandals, celebrity drama, and Amapiano events. Your source for entertainment news and culture." />
+    <meta property="twitter:image" content="/og-image.jpg" />
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#FF0000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" /></noscript>
+    
     <title>SA IS A MOVIE - South African Entertainment & Culture</title>
-    <!-- Clerk Authentication -->
-    <!-- Clerk script is loaded via the React app -->
+    
+    <!-- Critical CSS inline for above-the-fold content -->
+    <style>
+      /* Critical CSS for initial render */
+      body { margin: 0; font-family: Inter, system-ui, sans-serif; background: #1A1A3A; color: white; }
+      #root { min-height: 100vh; }
+      .saisa-bg { background: linear-gradient(135deg, #1A1A3A 0%, #0A0A2A 100%); }
+      .animate-spin { animation: spin 1s linear infinite; }
+      @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
   </head>
   <body>
     <div id="root"></div>
