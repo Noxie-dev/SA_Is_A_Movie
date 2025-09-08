@@ -2,8 +2,8 @@ import { createClient } from 'contentful';
 
 // Contentful client configuration
 const client = createClient({
-  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID || 'demo-space-id',
-  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN || 'demo-access-token',
+  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
+  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
   environment: 'master', // or your environment name
 });
 
@@ -18,6 +18,12 @@ export const CONTENT_TYPES = {
 // Fetch trending stories
 export const getTrendingStories = async () => {
   try {
+    // Check if Contentful is configured
+    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+      console.warn('Contentful not configured - returning empty array');
+      return [];
+    }
+    
     const response = await client.getEntries({
       content_type: CONTENT_TYPES.TRENDING_STORY,
       order: '-sys.createdAt',
@@ -33,6 +39,12 @@ export const getTrendingStories = async () => {
 // Fetch blog posts
 export const getBlogPosts = async (limit = 10) => {
   try {
+    // Check if Contentful is configured
+    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+      console.warn('Contentful not configured - returning empty array');
+      return [];
+    }
+    
     const response = await client.getEntries({
       content_type: CONTENT_TYPES.BLOG_POST,
       order: '-sys.createdAt',
@@ -48,6 +60,12 @@ export const getBlogPosts = async (limit = 10) => {
 // Fetch hero content
 export const getHeroContent = async () => {
   try {
+    // Check if Contentful is configured
+    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+      console.warn('Contentful not configured - returning null');
+      return null;
+    }
+    
     const response = await client.getEntries({
       content_type: CONTENT_TYPES.HERO_CONTENT,
       limit: 1,
@@ -62,6 +80,12 @@ export const getHeroContent = async () => {
 // Fetch settings
 export const getSettings = async () => {
   try {
+    // Check if Contentful is configured
+    if (!import.meta.env.VITE_CONTENTFUL_SPACE_ID || !import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN) {
+      console.warn('Contentful not configured - returning null');
+      return null;
+    }
+    
     const response = await client.getEntries({
       content_type: CONTENT_TYPES.SETTINGS,
       limit: 1,

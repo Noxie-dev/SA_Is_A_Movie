@@ -9,7 +9,7 @@
   NPM_FLAGS = "--version"
   # Site URL for CMS configuration (set this in Netlify dashboard)
   # Clerk authentication (set these in Netlify dashboard)
-  VITE_CLERK_PUBLISHABLE_KEY = "pk_test_aW50ZW50LWNvcmFsLTUwLmNsZXJrLmFjY291bnRzLmRldiQ"
+  # VITE_CLERK_PUBLISHABLE_KEY = "your-production-clerk-key"
   # CLERK_SECRET_KEY = "your-clerk-secret-key"
   # GitHub integration (set these in Netlify dashboard)
   # GITHUB_OWNER = "your-github-username"
