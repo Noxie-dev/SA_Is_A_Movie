@@ -45,8 +45,9 @@ const TermsPage = () => {
               <div>
                 <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Acceptance of Terms</h3>
                 <p className="leading-relaxed">
-                  By accessing and using this website, you accept and agree to be bound by the terms and 
-                  provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                  By using this site, you confirm you are at least 13 years old and agree to these Terms. 
+                  If you do not agree, please discontinue use immediately. By accessing and using this website, 
+                  you accept and agree to be bound by the terms and provision of this agreement.
                 </p>
               </div>
 
@@ -87,6 +88,34 @@ const TermsPage = () => {
               </div>
 
               <div>
+                <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Data Protection & Privacy</h3>
+                <p className="leading-relaxed mb-3">
+                  We collect data in accordance with POPIA, GDPR, and our <a href="/privacy" className="text-[#FFA500] hover:text-[#FF66B2] transition-colors">Privacy Policy</a>. 
+                  By using our website, you consent to analytics, engagement tracking, and personalised advertising unless you opt out using our cookie preferences banner.
+                </p>
+                <p className="leading-relaxed">
+                  SA IS A MOVIE uses Google AdSense, GA4, and third-party analytics to personalise ads and measure engagement. 
+                  We share anonymised data with these providers in line with our <a href="/privacy" className="text-[#FFA500] hover:text-[#FF66B2] transition-colors">Privacy Policy</a>.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-3 saisa-text-yellow">User Rights (POPIA & GDPR)</h3>
+                <p className="leading-relaxed">
+                  You have the right to access, correct, request deletion, or restrict processing of your personal information. 
+                  Contact <a href="mailto:privacy@saisamovie.co.za" className="text-[#FFA500] hover:text-[#FF66B2] transition-colors">privacy@saisamovie.co.za</a> to exercise these rights.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Children's Privacy</h3>
+                <p className="leading-relaxed">
+                  SA IS A MOVIE does not knowingly collect data from children under 13. If you believe we have inadvertently 
+                  collected such data, please contact us to delete it.
+                </p>
+              </div>
+
+              <div>
                 <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Disclaimer</h3>
                 <p className="leading-relaxed">
                   The materials on SA IS A MOVIE's website are provided on an 'as is' basis. SA IS A MOVIE makes no 
@@ -97,10 +126,11 @@ const TermsPage = () => {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Limitations</h3>
+                <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Limitation of Liability</h3>
                 <p className="leading-relaxed">
-                  In no event shall SA IS A MOVIE or its suppliers be liable for any damages (including, without limitation, 
-                  damages for loss of data or profit, or due to business interruption) arising out of the use or inability 
+                  We are not responsible for damages, loss of profits, or data due to reliance on our services. 
+                  You use this platform at your own risk. In no event shall SA IS A MOVIE or its suppliers be liable for any damages 
+                  (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability 
                   to use the materials on SA IS A MOVIE's website, even if SA IS A MOVIE or a SA IS A MOVIE authorized 
                   representative has been notified orally or in writing of the possibility of such damage.
                 </p>
@@ -117,6 +147,7 @@ const TermsPage = () => {
               <div>
                 <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Changes to Terms</h3>
                 <p className="leading-relaxed">
+                  We may update these Terms to reflect changes in law or business operations. Continued use of the site after updates implies acceptance. 
                   SA IS A MOVIE reserves the right to revise these terms of service at any time without notice. 
                   By using this website, you are agreeing to be bound by the then current version of these terms of service.
                 </p>
@@ -125,11 +156,9 @@ const TermsPage = () => {
               <div>
                 <h3 className="text-xl font-bold mb-3 saisa-text-yellow">Contact Information</h3>
                 <p className="leading-relaxed">
-                  If you have any questions about these Terms of Service, please contact us at:
-                  <br />
-                  Email: legal@saisamovie.co.za
-                  <br />
-                  Or visit our <a href="/contact" className="text-[#FFA500] hover:text-[#FF66B2] transition-colors">Contact Page</a>
+                  Questions about these Terms? Contact:
+                  <br />Email: legal@saisamovie.co.za
+                  <br />Visit our <a href="/contact" className="text-[#FFA500] hover:text-[#FF66B2] transition-colors">Contact Page</a>
                 </p>
               </div>
             </div>

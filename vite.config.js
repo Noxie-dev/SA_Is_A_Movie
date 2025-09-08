@@ -13,6 +13,8 @@ export default defineConfig({
   },
   define: {
     global: 'globalThis',
+    // Environment variable fallbacks for development
+    'process.env': process.env,
   },
   build: {
     rollupOptions: {
