@@ -4,9 +4,146 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SA IS A MOVIE - Content Management</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .cms-header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      text-align: center;
+      color: white;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .cms-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    .cms-header p {
+      margin: 10px 0 0 0;
+      opacity: 0.9;
+    }
+    
+    #nc-root {
+      background: white;
+      border-radius: 12px 12px 0 0;
+      margin: 0 20px;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+      min-height: calc(100vh - 120px);
+    }
+  </style>
 </head>
 <body>
+  <div class="cms-header">
+    <h1>🎬 SA IS A MOVIE</h1>
+    <p>Content Management System - Manage your trending stories, blog posts, and more</p>
+  </div>
+  
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <!-- Load custom widgets -->
+  <script src="./custom-widgets.js"></script>
+  
+  <script>
+    // Initialize CMS with custom configuration
+    CMS.init({
+      config: {
+        load_config_file: true,
+        display_url: window.location.origin,
+        site_url: window.location.origin,
+      }
+    });
+    
+    // Add custom event listeners for enhanced functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('SA IS A MOVIE CMS initialized with custom widgets');
+      
+      // Add copyright check functionality
+      window.checkCopyright = function(imageUrl) {
+        if (!imageUrl) {
+          alert('Please provide an image URL to check');
+          return;
+        }
+        
+        // Show loading state
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Checking...';
+        button.disabled = true;
+        
+        // Call the copyright check API
+        fetch('/.netlify/functions/vision-copyright-check', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ imageUrl })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const analysis = data.analysis;
+            alert(`Copyright Check Results:\n\nStatus: ${analysis.status}\nRisk Level: ${analysis.copyrightRisk}\nConfidence: ${Math.round(analysis.confidence * 100)}%\n\nIssues: ${analysis.issues.join(', ') || 'None'}\n\nRecommendations: ${analysis.recommendations.join(', ') || 'None'}`);
+          } else {
+            alert('Copyright check failed: ' + (data.error || 'Unknown error'));
+          }
+        })
+        .catch(error => {
+          console.error('Copyright check error:', error);
+          alert('Copyright check failed: ' + error.message);
+        })
+        .finally(() => {
+          button.textContent = originalText;
+          button.disabled = false;
+        });
+      };
+      
+      // Add post story functionality
+      window.postStoryToBlog = function(storyId, authorDetails) {
+        if (!storyId) {
+          alert('Please provide a story ID');
+          return;
+        }
+        
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Posting...';
+        button.disabled = true;
+        
+        fetch('/.netlify/functions/post-story-to-blog', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ storyId, authorDetails })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(`Story successfully posted to blog!\n\nBlog Post ID: ${data.blogPost.sys.id}`);
+          } else {
+            alert('Failed to post story: ' + (data.error || 'Unknown error'));
+          }
+        })
+        .catch(error => {
+          console.error('Post story error:', error);
+          alert('Failed to post story: ' + error.message);
+        })
+        .finally(() => {
+          button.textContent = originalText;
+          button.disabled = false;
+        });
+      };
+    });
+  </script>
 </body>
 </html>

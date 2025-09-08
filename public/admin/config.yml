@@ -21,13 +21,43 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Description", name: "description", widget: "text"}
-      - {label: "Category", name: "category", widget: "select", options: ["music", "scandal", "celebrity", "culture"]}
-      - {label: "Color", name: "color", widget: "select", options: ["saisa-text-blue", "saisa-text-pink", "saisa-text-yellow", "saisa-text-red"]}
+      - {label: "Category", name: "category", widget: "select", options: ["music", "scandal", "celebrity", "culture", "politics", "sports"]}
+      - {label: "Color Theme", name: "color", widget: "select", options: ["saisa-text-blue", "saisa-text-pink", "saisa-text-yellow", "saisa-text-red"]}
       - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "Media Files", name: "media", widget: "list", required: false, field: {label: "Media File", name: "file", widget: "image"}}
+      - {label: "Author Details", name: "author", widget: "object", fields: [
+          {label: "Author Name", name: "name", widget: "string"},
+          {label: "Author Role", name: "role", widget: "string"},
+          {label: "Author Avatar", name: "avatar", widget: "image", required: false}
+        ]}
       - {label: "Content", name: "body", widget: "markdown"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Is Active", name: "isActive", widget: "boolean", default: true}
       - {label: "Featured", name: "featured", widget: "boolean", default: false}
       - {label: "Tags", name: "tags", widget: "list", default: []}
+      - {label: "Copyright Status", name: "copyrightStatus", widget: "select", options: ["pending", "approved", "flagged", "rejected"], default: "pending"}
+      - {label: "Copyright Checked", name: "copyrightChecked", widget: "boolean", default: false}
+      - {label: "Post to Blog", name: "postToBlog", widget: "boolean", default: false, hint: "Check this to automatically post this trending story to the blog"}
+      - {label: "Blog Post ID", name: "blogPostId", widget: "string", required: false, hint: "Auto-generated when posted to blog"}
+
+  # Blog Posts Collection
+  - name: "blog_posts"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Slug", name: "slug", widget: "string", hint: "URL-friendly version of the title"}
+      - {label: "Excerpt", name: "excerpt", widget: "text", hint: "Short description for previews"}
+      - {label: "Content", name: "body", widget: "markdown"}
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "Category", name: "category", widget: "select", options: ["music", "scandal", "celebrity", "culture", "politics", "sports"]}
+      - {label: "Tags", name: "tags", widget: "list", default: []}
+      - {label: "Author", name: "author", widget: "string", default: "SA IS A MOVIE Team"}
+      - {label: "Is Published", name: "isPublished", widget: "boolean", default: true}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Source Story ID", name: "sourceStoryId", widget: "string", required: false, hint: "ID of the trending story this was created from"}
 
   # About Section Content
   - name: "about"
