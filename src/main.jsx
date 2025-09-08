@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ClerkProvider } from '@clerk/clerk-react'
+import { ConsentProvider } from './context/ConsentContext'
 import './index.css'
 import App from './App.jsx'
 
@@ -13,11 +14,13 @@ if (!PUBLISHABLE_KEY) {
 
 const root = createRoot(document.getElementById('root'))
 
-// Render app with Clerk authentication
+// Render app with Clerk authentication and consent management
 root.render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <App />
-    </ClerkProvider>
+    <ConsentProvider>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <App />
+      </ClerkProvider>
+    </ConsentProvider>
   </StrictMode>
 );

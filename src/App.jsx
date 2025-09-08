@@ -8,6 +8,7 @@ import ParticleBackground from './components/ParticleBackground';
 import AuthButton from './components/AuthButton';
 import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
+import ConsentBanner from './components/ConsentBanner';
 import { lazy, Suspense } from 'react';
 import './App.css';
 
@@ -26,6 +27,7 @@ const RecentPosts = lazy(() => import('./components/RecentPosts'));
 function App() {
   return (
     <Router>
+      <ConsentBanner />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route 
