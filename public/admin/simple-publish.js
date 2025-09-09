@@ -159,20 +159,31 @@
   setTimeout(addPublishButton, 5000);
   
   // Listen for CMS events when available
+  let simpleRetryCount = 0;
+  const simpleMaxRetries = 50; // 5 seconds max wait time
+  
   function addCMSListeners() {
     if (window.CMS) {
       console.log('Adding CMS event listeners for publish button...');
-      // Use a valid event name - preSave is a valid CMS event
-      window.CMS.registerEventListener({
-        name: 'preSave',
-        handler: () => {
-          console.log('CMS pre-save event, ensuring publish button is available');
-          addPublishButton();
-        }
-      });
-    } else {
-      console.log('CMS not available for event listeners, retrying...');
+      try {
+        // Use a valid event name - preSave is a valid CMS event
+        window.CMS.registerEventListener({
+          name: 'preSave',
+          handler: () => {
+            console.log('CMS pre-save event, ensuring publish button is available');
+            addPublishButton();
+          }
+        });
+        console.log('CMS event listeners added for publish button');
+      } catch (error) {
+        console.error('Failed to add CMS event listeners for publish button:', error);
+      }
+    } else if (simpleRetryCount < simpleMaxRetries) {
+      simpleRetryCount++;
+      console.log(`CMS not available for event listeners, retrying... (${simpleRetryCount}/${simpleMaxRetries})`);
       setTimeout(addCMSListeners, 100);
+    } else {
+      console.warn('CMS not available for event listeners after maximum retries. Skipping CMS event listeners for publish button.');
     }
   }
   

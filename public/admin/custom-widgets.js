@@ -4,11 +4,20 @@
  */
 
 // Wait for CMS to be available before registering widgets
+let widgetRetryCount = 0;
+const widgetMaxRetries = 50; // 5 seconds max wait time
+
 function registerCustomWidgets() {
   if (typeof CMS === 'undefined') {
-    console.log('CMS not available yet, retrying...');
-    setTimeout(registerCustomWidgets, 100);
-    return;
+    if (widgetRetryCount < widgetMaxRetries) {
+      widgetRetryCount++;
+      console.log(`CMS not available yet, retrying... (${widgetRetryCount}/${widgetMaxRetries})`);
+      setTimeout(registerCustomWidgets, 100);
+      return;
+    } else {
+      console.warn('CMS not available after maximum retries. Skipping custom widget registration.');
+      return;
+    }
   }
   
   console.log('Registering custom CMS widgets...');

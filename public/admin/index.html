@@ -57,6 +57,9 @@
   <!-- Load custom widgets after CMS is available -->
   <script>
     // Wait for CMS to be available before loading custom widgets
+    let retryCount = 0;
+    const maxRetries = 50; // 5 seconds max wait time
+    
     function loadCustomWidgets() {
       if (window.CMS) {
         console.log('CMS is available, loading custom widgets...');
@@ -68,9 +71,20 @@
         const script2 = document.createElement('script');
         script2.src = './publish-widget.js';
         document.head.appendChild(script2);
-      } else {
-        console.log('CMS not yet available, retrying...');
+      } else if (retryCount < maxRetries) {
+        retryCount++;
+        console.log(`CMS not yet available, retrying... (${retryCount}/${maxRetries})`);
         setTimeout(loadCustomWidgets, 100);
+      } else {
+        console.warn('CMS failed to load after maximum retries. Loading widgets anyway...');
+        // Load widgets even if CMS isn't available
+        const script1 = document.createElement('script');
+        script1.src = './custom-widgets.js';
+        document.head.appendChild(script1);
+        
+        const script2 = document.createElement('script');
+        script2.src = './publish-widget.js';
+        document.head.appendChild(script2);
       }
     }
     
@@ -103,20 +117,30 @@
     })();
 
     // Initialize CMS with custom configuration
+    let cmsRetryCount = 0;
+    const cmsMaxRetries = 50; // 5 seconds max wait time
+    
     function initializeCMS() {
       if (window.CMS) {
         console.log('Initializing CMS...');
-        CMS.init({
-          config: {
-            load_config_file: true,
-            display_url: window.location.origin,
-            site_url: window.location.origin,
-          }
-        });
-        console.log('CMS initialized successfully');
-      } else {
-        console.log('CMS not available yet, retrying...');
+        try {
+          CMS.init({
+            config: {
+              load_config_file: true,
+              display_url: window.location.origin,
+              site_url: window.location.origin,
+            }
+          });
+          console.log('CMS initialized successfully');
+        } catch (error) {
+          console.error('CMS initialization failed:', error);
+        }
+      } else if (cmsRetryCount < cmsMaxRetries) {
+        cmsRetryCount++;
+        console.log(`CMS not available yet, retrying... (${cmsRetryCount}/${cmsMaxRetries})`);
         setTimeout(initializeCMS, 100);
+      } else {
+        console.warn('CMS failed to load after maximum retries. Skipping CMS initialization.');
       }
     }
     
@@ -124,20 +148,30 @@
     initializeCMS();
     
     // Add event listeners after CMS is initialized
+    let eventRetryCount = 0;
+    const eventMaxRetries = 50; // 5 seconds max wait time
+    
     function addEventListeners() {
       if (window.CMS) {
         console.log('Adding CMS event listeners...');
-        CMS.registerEventListener({
-          name: 'preSave',
-          handler: ({ entry, authorLogin, commitMessage }) => {
-            console.log('Pre-save event:', entry);
-            return true;
-          }
-        });
-        console.log('CMS event listeners added');
-      } else {
-        console.log('CMS not available for event listeners, retrying...');
+        try {
+          CMS.registerEventListener({
+            name: 'preSave',
+            handler: ({ entry, authorLogin, commitMessage }) => {
+              console.log('Pre-save event:', entry);
+              return true;
+            }
+          });
+          console.log('CMS event listeners added');
+        } catch (error) {
+          console.error('Failed to add CMS event listeners:', error);
+        }
+      } else if (eventRetryCount < eventMaxRetries) {
+        eventRetryCount++;
+        console.log(`CMS not available for event listeners, retrying... (${eventRetryCount}/${eventMaxRetries})`);
         setTimeout(addEventListeners, 100);
+      } else {
+        console.warn('CMS not available for event listeners after maximum retries. Skipping event listeners.');
       }
     }
     

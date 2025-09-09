@@ -4,11 +4,20 @@
  */
 
 // Wait for CMS to be available before registering widgets
+let publishRetryCount = 0;
+const publishMaxRetries = 50; // 5 seconds max wait time
+
 function registerPublishWidget() {
   if (typeof CMS === 'undefined') {
-    console.log('CMS not available yet for publish widget, retrying...');
-    setTimeout(registerPublishWidget, 100);
-    return;
+    if (publishRetryCount < publishMaxRetries) {
+      publishRetryCount++;
+      console.log(`CMS not available yet for publish widget, retrying... (${publishRetryCount}/${publishMaxRetries})`);
+      setTimeout(registerPublishWidget, 100);
+      return;
+    } else {
+      console.warn('CMS not available after maximum retries. Skipping publish widget registration.');
+      return;
+    }
   }
   
   console.log('Registering publish widget...');
