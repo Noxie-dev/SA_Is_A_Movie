@@ -12,6 +12,7 @@ const Navigation = () => {
     { path: '/', label: 'Home' },
     { path: '/blog', label: 'Blog' },
     { path: '/trending', label: 'Trending' },
+    { path: '/stories', label: 'My Stories' },
     { path: '/about', label: 'About' },
     { path: '/contact', label: 'Contact' },
   ];

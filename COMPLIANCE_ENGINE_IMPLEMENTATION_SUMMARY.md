@@ -160,10 +160,10 @@ The engine uses a weighted scoring system:
 ### 1. Set Up Environment Variables
 ```bash
 # Set in Netlify dashboard or .env file
-LANGUAGE_TOOL_API_KEY=your_key
-GOOGLE_PERSPECTIVE_API_KEY=your_key
-GOOGLE_FACT_CHECK_API_KEY=your_key
-OPENAI_API_KEY=your_key
+LANGUAGE_TOOL_API_KEY=your_key_here
+GOOGLE_PERSPECTIVE_API_KEY=your_key_here
+GOOGLE_FACT_CHECK_API_KEY=your_key_here
+OPENAI_API_KEY=your_key_here
 ```
 
 ### 2. Install Dependencies

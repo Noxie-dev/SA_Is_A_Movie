@@ -22,6 +22,7 @@ const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CMSAdmin = lazy(() => import('./pages/CMSAdmin'));
+const StoriesPage = lazy(() => import('./pages/StoriesPage'));
 const TrendingStories = lazy(() => import('./components/TrendingStories'));
 const RecentPosts = lazy(() => import('./components/RecentPosts'));
 
@@ -129,6 +130,18 @@ function App() {
                 <CMSAdmin />
               </Suspense>
             </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/stories" 
+          element={
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center saisa-bg">
+                <PerformanceLoader type="spinner" size="xl" text="Loading your stories..." />
+              </div>
+            }>
+              <StoriesPage />
+            </Suspense>
           } 
         />
       </Routes>

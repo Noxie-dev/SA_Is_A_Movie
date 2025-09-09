@@ -52,6 +52,8 @@
   
   <!-- Load custom widgets -->
   <script src="./custom-widgets.js"></script>
+  <script src="./publish-widget.js"></script>
+  <script src="./simple-publish.js"></script>
   
   <script>
     // Initialize CMS with custom configuration
@@ -60,6 +62,15 @@
         load_config_file: true,
         display_url: window.location.origin,
         site_url: window.location.origin,
+      }
+    });
+    
+    // Add publish button immediately after CMS loads
+    CMS.registerEventListener({
+      name: 'preSave',
+      handler: ({ entry, authorLogin, commitMessage }) => {
+        console.log('Pre-save event:', entry);
+        return true;
       }
     });
     
@@ -143,6 +154,118 @@
           button.disabled = false;
         });
       };
+      
+      // Add publish button to the CMS interface
+      function addPublishButton() {
+        // Wait for the CMS to load
+        setTimeout(() => {
+          const cmsContent = document.querySelector('#nc-root');
+          if (cmsContent) {
+            // Create publish button
+            const publishButton = document.createElement('button');
+            publishButton.innerHTML = '🚀 Publish Story to Blog';
+            publishButton.style.cssText = `
+              position: fixed;
+              top: 20px;
+              right: 20px;
+              background: linear-gradient(135deg, #FFA500, #FF6600);
+              color: white;
+              border: none;
+              padding: 12px 24px;
+              border-radius: 25px;
+              font-weight: bold;
+              font-size: 14px;
+              cursor: pointer;
+              box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+              z-index: 1000;
+              transition: all 0.3s ease;
+            `;
+            
+            publishButton.addEventListener('mouseenter', () => {
+              publishButton.style.transform = 'scale(1.05)';
+              publishButton.style.boxShadow = '0 6px 20px rgba(255, 165, 0, 0.4)';
+            });
+            
+            publishButton.addEventListener('mouseleave', () => {
+              publishButton.style.transform = 'scale(1)';
+              publishButton.style.boxShadow = '0 4px 15px rgba(255, 165, 0, 0.3)';
+            });
+            
+            publishButton.addEventListener('click', () => {
+              // Get current form data
+              const form = document.querySelector('form');
+              if (!form) {
+                alert('Please open a story to publish');
+                return;
+              }
+              
+              const formData = new FormData(form);
+              const storyData = {
+                title: formData.get('title') || 'Untitled Story',
+                description: formData.get('description') || '',
+                body: formData.get('body') || '',
+                category: formData.get('category') || 'culture',
+                tags: formData.get('tags') ? formData.get('tags').split(',') : [],
+                author: { name: 'SA IS A MOVIE Team' },
+                featured_image: formData.get('featured_image') || '',
+                color: formData.get('color') || 'saisa-text-blue'
+              };
+              
+              // Show confirmation
+              if (!confirm(`Publish "${storyData.title}" to the blog?`)) {
+                return;
+              }
+              
+              publishButton.innerHTML = '⏳ Publishing...';
+              publishButton.disabled = true;
+              
+              // Call publish function
+              fetch('/.netlify/functions/post-story-to-blog', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                  storyData: storyData,
+                  authorDetails: storyData.author
+                })
+              })
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  alert(`🎉 Story published successfully!\n\nTitle: ${storyData.title}\nBlog Post ID: ${data.blogPost?.sys?.id || data.blogPost?.slug || 'N/A'}`);
+                } else {
+                  alert('❌ Failed to publish: ' + (data.error || 'Unknown error'));
+                }
+              })
+              .catch(error => {
+                console.error('Publish error:', error);
+                alert('❌ Failed to publish: ' + error.message);
+              })
+              .finally(() => {
+                publishButton.innerHTML = '🚀 Publish Story to Blog';
+                publishButton.disabled = false;
+              });
+            });
+            
+            document.body.appendChild(publishButton);
+          }
+        }, 2000);
+      }
+      
+      // Add the publish button when the page loads
+      addPublishButton();
+      
+      // Also add publish button when CMS is ready
+      if (window.CMS) {
+        window.CMS.registerEventListener({
+          name: 'cms:ready',
+          handler: () => {
+            console.log('CMS is ready, adding publish button');
+            addPublishButton();
+          }
+        });
+      }
     });
   </script>
 </body>

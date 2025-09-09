@@ -12,14 +12,14 @@ Create a `.env` file in your root directory with the following API keys:
 
 ```env
 # Language Tool API (Grammar Check)
-LANGUAGE_TOOL_API_KEY=your_languagetool_api_key
+LANGUAGE_TOOL_API_KEY=your_languagetool_api_key_here
 
 # Google APIs
-GOOGLE_PERSPECTIVE_API_KEY=your_perspective_api_key
-GOOGLE_FACT_CHECK_API_KEY=your_fact_check_api_key
+GOOGLE_PERSPECTIVE_API_KEY=your_perspective_api_key_here
+GOOGLE_FACT_CHECK_API_KEY=your_fact_check_api_key_here
 
 # OpenAI (for enhanced analysis)
-OPENAI_API_KEY=your_openai_api_key
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 ### 2. Get Your API Keys
@@ -72,10 +72,10 @@ Set your environment variables in Netlify:
 
 ```bash
 # Using Netlify CLI
-netlify env:set LANGUAGE_TOOL_API_KEY "your_languagetool_api_key"
-netlify env:set GOOGLE_PERSPECTIVE_API_KEY "your_perspective_api_key"
-netlify env:set GOOGLE_FACT_CHECK_API_KEY "your_fact_check_api_key"
-netlify env:set OPENAI_API_KEY "your_openai_api_key"
+netlify env:set LANGUAGE_TOOL_API_KEY "your_languagetool_api_key_here"
+netlify env:set GOOGLE_PERSPECTIVE_API_KEY "your_perspective_api_key_here"
+netlify env:set GOOGLE_FACT_CHECK_API_KEY "your_fact_check_api_key_here"
+netlify env:set OPENAI_API_KEY "your_openai_api_key_here"
 
 # Or set them in Netlify Dashboard:
 # Site Settings → Environment Variables → Add Variable
