@@ -158,17 +158,26 @@
   setTimeout(addPublishButton, 3000);
   setTimeout(addPublishButton, 5000);
   
-  // Listen for CMS events
-  if (window.CMS) {
-    // Use a valid event name - preSave is a valid CMS event
-    window.CMS.registerEventListener({
-      name: 'preSave',
-      handler: () => {
-        console.log('CMS pre-save event, ensuring publish button is available');
-        addPublishButton();
-      }
-    });
+  // Listen for CMS events when available
+  function addCMSListeners() {
+    if (window.CMS) {
+      console.log('Adding CMS event listeners for publish button...');
+      // Use a valid event name - preSave is a valid CMS event
+      window.CMS.registerEventListener({
+        name: 'preSave',
+        handler: () => {
+          console.log('CMS pre-save event, ensuring publish button is available');
+          addPublishButton();
+        }
+      });
+    } else {
+      console.log('CMS not available for event listeners, retrying...');
+      setTimeout(addCMSListeners, 100);
+    }
   }
+  
+  // Start adding CMS listeners
+  addCMSListeners();
   
   console.log('Simple publish button script loaded');
 })();

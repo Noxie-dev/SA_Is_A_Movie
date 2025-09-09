@@ -3,6 +3,16 @@
  * Adds a prominent publish button to the trending stories form
  */
 
+// Wait for CMS to be available before registering widgets
+function registerPublishWidget() {
+  if (typeof CMS === 'undefined') {
+    console.log('CMS not available yet for publish widget, retrying...');
+    setTimeout(registerPublishWidget, 100);
+    return;
+  }
+  
+  console.log('Registering publish widget...');
+
 // Register the publish widget
 CMS.registerWidget('publish-to-blog', {
   label: 'Publish to Blog',
@@ -169,4 +179,8 @@ window.publishStoryToBlog = function(storyData) {
   });
 };
 
-console.log('SA IS A MOVIE Publish Widget loaded successfully!');
+  console.log('SA IS A MOVIE Publish Widget loaded successfully!');
+}
+
+// Start registering publish widget
+registerPublishWidget();

@@ -3,6 +3,16 @@
  * Adds copyright checker and post story functionality
  */
 
+// Wait for CMS to be available before registering widgets
+function registerCustomWidgets() {
+  if (typeof CMS === 'undefined') {
+    console.log('CMS not available yet, retrying...');
+    setTimeout(registerCustomWidgets, 100);
+    return;
+  }
+  
+  console.log('Registering custom CMS widgets...');
+
 // Copyright Checker Widget
 CMS.registerWidget('copyright-checker', {
   // Widget configuration
@@ -332,4 +342,8 @@ const style = document.createElement('style');
 style.textContent = customCSS;
 document.head.appendChild(style);
 
-console.log('SA IS A MOVIE Custom CMS Widgets loaded successfully!');
+  console.log('SA IS A MOVIE Custom CMS Widgets loaded successfully!');
+}
+
+// Start registering widgets
+registerCustomWidgets();

@@ -51,10 +51,32 @@
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^2.15.1/dist/decap-cms.js"></script>
   
-  <!-- Load custom widgets -->
-  <script src="./custom-widgets.js"></script>
-  <script src="./publish-widget.js"></script>
+  <!-- Load simple publish button first (doesn't depend on CMS) -->
   <script src="./simple-publish.js"></script>
+  
+  <!-- Load custom widgets after CMS is available -->
+  <script>
+    // Wait for CMS to be available before loading custom widgets
+    function loadCustomWidgets() {
+      if (window.CMS) {
+        console.log('CMS is available, loading custom widgets...');
+        // Load custom widgets dynamically
+        const script1 = document.createElement('script');
+        script1.src = './custom-widgets.js';
+        document.head.appendChild(script1);
+        
+        const script2 = document.createElement('script');
+        script2.src = './publish-widget.js';
+        document.head.appendChild(script2);
+      } else {
+        console.log('CMS not yet available, retrying...');
+        setTimeout(loadCustomWidgets, 100);
+      }
+    }
+    
+    // Start loading custom widgets
+    loadCustomWidgets();
+  </script>
   
   <script>
     // DOM manipulation polyfill to prevent removeChild errors
@@ -81,22 +103,46 @@
     })();
 
     // Initialize CMS with custom configuration
-    CMS.init({
-      config: {
-        load_config_file: true,
-        display_url: window.location.origin,
-        site_url: window.location.origin,
+    function initializeCMS() {
+      if (window.CMS) {
+        console.log('Initializing CMS...');
+        CMS.init({
+          config: {
+            load_config_file: true,
+            display_url: window.location.origin,
+            site_url: window.location.origin,
+          }
+        });
+        console.log('CMS initialized successfully');
+      } else {
+        console.log('CMS not available yet, retrying...');
+        setTimeout(initializeCMS, 100);
       }
-    });
+    }
     
-    // Add publish button immediately after CMS loads
-    CMS.registerEventListener({
-      name: 'preSave',
-      handler: ({ entry, authorLogin, commitMessage }) => {
-        console.log('Pre-save event:', entry);
-        return true;
+    // Start CMS initialization
+    initializeCMS();
+    
+    // Add event listeners after CMS is initialized
+    function addEventListeners() {
+      if (window.CMS) {
+        console.log('Adding CMS event listeners...');
+        CMS.registerEventListener({
+          name: 'preSave',
+          handler: ({ entry, authorLogin, commitMessage }) => {
+            console.log('Pre-save event:', entry);
+            return true;
+          }
+        });
+        console.log('CMS event listeners added');
+      } else {
+        console.log('CMS not available for event listeners, retrying...');
+        setTimeout(addEventListeners, 100);
       }
-    });
+    }
+    
+    // Start adding event listeners
+    addEventListeners();
     
     // Add custom event listeners for enhanced functionality
     document.addEventListener('DOMContentLoaded', function() {
