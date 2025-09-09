@@ -49,7 +49,37 @@
   </div>
   
   <!-- Include the script that builds the page and powers Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^2.15.1/dist/decap-cms.js"></script>
+  <script>
+    // Try to load Decap CMS with fallback
+    function loadDecapCMS() {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/decap-cms@^2.15.1/dist/decap-cms.js';
+      script.onload = function() {
+        console.log('Decap CMS loaded successfully from CDN');
+      };
+      script.onerror = function() {
+        console.warn('Failed to load Decap CMS from CDN, trying alternative CDN...');
+        // Try alternative CDN
+        const altScript = document.createElement('script');
+        altScript.src = 'https://cdn.jsdelivr.net/npm/decap-cms@2.15.1/dist/decap-cms.js';
+        altScript.onload = function() {
+          console.log('Decap CMS loaded successfully from alternative CDN');
+        };
+        altScript.onerror = function() {
+          console.error('Failed to load Decap CMS from all CDNs. CMS functionality will be limited.');
+        };
+        document.head.appendChild(altScript);
+      };
+      document.head.appendChild(script);
+    }
+    
+    // Load CMS when page is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadDecapCMS);
+    } else {
+      loadDecapCMS();
+    }
+  </script>
   
   <!-- Load simple publish button first (doesn't depend on CMS) -->
   <script src="./simple-publish.js"></script>
@@ -178,6 +208,63 @@
     // Start adding event listeners
     addEventListeners();
     
+    // Add fallback CMS interface if Decap CMS fails to load
+    function createFallbackCMS() {
+      const cmsContent = document.querySelector('#nc-root');
+      if (cmsContent && !window.CMS) {
+        console.log('Creating fallback CMS interface...');
+        cmsContent.innerHTML = `
+          <div style="padding: 40px; text-align: center; background: white; border-radius: 12px; margin: 20px;">
+            <h2 style="color: #333; margin-bottom: 20px;">🎬 SA IS A MOVIE - Content Management</h2>
+            <p style="color: #666; margin-bottom: 30px;">The CMS is currently unavailable, but you can still manage your content using the tools below:</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
+              <div style="border: 2px solid #FFA500; border-radius: 8px; padding: 20px; background: #fff8f0;">
+                <h3 style="color: #FFA500; margin-bottom: 15px;">📝 Create New Story</h3>
+                <p style="color: #666; margin-bottom: 15px;">Use the floating publish button to create and publish stories directly to your blog.</p>
+                <button onclick="alert('Use the floating 🚀 PUBLISH TO BLOG button in the top-right corner!')" 
+                        style="background: #FFA500; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                  How to Publish
+                </button>
+              </div>
+              
+              <div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 20px; background: #f0f8ff;">
+                <h3 style="color: #3b82f6; margin-bottom: 15px;">📁 Manage Content</h3>
+                <p style="color: #666; margin-bottom: 15px;">Access your content files directly in your repository.</p>
+                <a href="https://github.com/Noxie-dev/SA_Is_A_Movie/tree/main/src/content" 
+                   target="_blank" 
+                   style="background: #3b82f6; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; display: inline-block;">
+                  View Content Files
+                </a>
+              </div>
+              
+              <div style="border: 2px solid #10b981; border-radius: 8px; padding: 20px; background: #f0fdf4;">
+                <h3 style="color: #10b981; margin-bottom: 15px;">🔧 Troubleshooting</h3>
+                <p style="color: #666; margin-bottom: 15px;">If the CMS isn't loading, try refreshing the page or check your internet connection.</p>
+                <button onclick="window.location.reload()" 
+                        style="background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                  Refresh Page
+                </button>
+              </div>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+              <h4 style="color: #333; margin-bottom: 10px;">💡 Quick Tips:</h4>
+              <ul style="color: #666; text-align: left; max-width: 600px; margin: 0 auto;">
+                <li>The 🚀 PUBLISH TO BLOG button works independently of the CMS</li>
+                <li>You can edit content files directly in your GitHub repository</li>
+                <li>All your content is safely stored in the <code>src/content/</code> folder</li>
+                <li>Changes are automatically deployed when you push to GitHub</li>
+              </ul>
+            </div>
+          </div>
+        `;
+      }
+    }
+    
+    // Check for fallback CMS after timeout
+    setTimeout(createFallbackCMS, 6000); // 6 seconds after page load
+
     // Add custom event listeners for enhanced functionality
     document.addEventListener('DOMContentLoaded', function() {
       console.log('SA IS A MOVIE CMS initialized with custom widgets');
