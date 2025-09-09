@@ -67,6 +67,8 @@
         };
         altScript.onerror = function() {
           console.error('Failed to load Decap CMS from all CDNs. CMS functionality will be limited.');
+          // Create fallback interface immediately when all CDNs fail
+          setTimeout(createFallbackCMS, 1000);
         };
         document.head.appendChild(altScript);
       };
@@ -264,6 +266,14 @@
     
     // Check for fallback CMS after timeout
     setTimeout(createFallbackCMS, 6000); // 6 seconds after page load
+    
+    // Also check immediately if CMS failed to load
+    setTimeout(() => {
+      if (!window.CMS) {
+        console.log('CMS still not available, creating fallback interface...');
+        createFallbackCMS();
+      }
+    }, 7000); // 7 seconds as backup
 
     // Add custom event listeners for enhanced functionality
     document.addEventListener('DOMContentLoaded', function() {
