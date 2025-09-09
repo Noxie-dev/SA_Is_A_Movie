@@ -163,5 +163,21 @@ export default defineConfig({
       'lucide-react'
     ],
     exclude: ['@vite/client', '@vite/env']
+  },
+  // Configure dev server
+  server: {
+    port: 5173,
+    // Handle admin routes properly in development
+    middlewareMode: false,
+    fs: {
+      // Allow serving files from public directory
+      allow: ['..']
+    }
+  },
+  // Configure preview server
+  preview: {
+    port: 4173,
+    // Handle admin routes in preview mode
+    middlewareMode: false
   }
 })

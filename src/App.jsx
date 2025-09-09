@@ -10,7 +10,8 @@ import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
 import ConsentBanner from './components/ConsentBanner';
 import PerformanceLoader from './components/PerformanceLoader';
-import { lazy, Suspense } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
+import { lazy, Suspense, useEffect } from 'react';
 import './App.css';
 
 // Lazy load pages for better code splitting
@@ -28,9 +29,10 @@ const RecentPosts = lazy(() => import('./components/RecentPosts'));
 
 function App() {
   return (
-    <Router>
-      <ConsentBanner />
-      <Routes>
+    <ErrorBoundary>
+      <Router>
+        <ConsentBanner />
+        <Routes>
         <Route path="/" element={<HomePage />} />
         <Route 
           path="/blog/*" 
@@ -144,8 +146,13 @@ function App() {
             </Suspense>
           } 
         />
+        <Route 
+          path="/admin/*" 
+          element={<AdminPage />} 
+        />
       </Routes>
     </Router>
+    </ErrorBoundary>
   );
 }
 
@@ -422,6 +429,29 @@ function HomePage() {
           </div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+// Admin page component that redirects to separate admin page
+function AdminPage() {
+  useEffect(() => {
+    // Clear any React state and redirect immediately to avoid DOM conflicts
+    const timer = setTimeout(() => {
+      // Use replace to avoid adding to history stack
+      window.location.replace('/admin/index.html');
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center saisa-bg">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FFA500] mx-auto mb-4"></div>
+        <p className="text-white text-xl">Loading admin panel...</p>
+        <p className="text-gray-400 text-sm mt-4">Redirecting to content management system</p>
+      </div>
     </div>
   );
 }

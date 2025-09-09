@@ -195,8 +195,9 @@ export function useAdOptimization(pageId, config = {}) {
     if (!trackerRef.current || !consent) return;
     
     try {
+      // Use a more defensive approach to find the ad element
       const adElement = document.querySelector(`[data-ad-id="${adId}"]`);
-      if (adElement) {
+      if (adElement && adElement.parentNode) {
         trackerRef.current.trackEngagement(adElement, 'ad_click');
         
         // Immediate reward for click

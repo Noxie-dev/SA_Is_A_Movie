@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>SA IS A MOVIE - Content Management</title>
   <style>
     body {
@@ -48,7 +49,7 @@
   </div>
   
   <!-- Include the script that builds the page and powers Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@^2.15.1/dist/decap-cms.js"></script>
   
   <!-- Load custom widgets -->
   <script src="./custom-widgets.js"></script>
@@ -56,6 +57,29 @@
   <script src="./simple-publish.js"></script>
   
   <script>
+    // DOM manipulation polyfill to prevent removeChild errors
+    (function() {
+      const originalRemoveChild = Element.prototype.removeChild;
+      Element.prototype.removeChild = function(child) {
+        if (child && child.parentNode === this) {
+          return originalRemoveChild.call(this, child);
+        }
+        // Silently ignore missing nodes to prevent crashes
+        console.warn('Attempted to remove non-existent child node');
+        return child;
+      };
+      
+      // Also patch appendChild to be more robust
+      const originalAppendChild = Element.prototype.appendChild;
+      Element.prototype.appendChild = function(child) {
+        if (child && child.nodeType) {
+          return originalAppendChild.call(this, child);
+        }
+        console.warn('Attempted to append invalid child node');
+        return child;
+      };
+    })();
+
     // Initialize CMS with custom configuration
     CMS.init({
       config: {
@@ -157,12 +181,23 @@
       
       // Add publish button to the CMS interface
       function addPublishButton() {
+        // Remove existing button if it exists
+        const existingButton = document.querySelector('#saisa-publish-button');
+        if (existingButton) {
+          try {
+            existingButton.remove();
+          } catch (e) {
+            console.warn('Could not remove existing publish button:', e);
+          }
+        }
+        
         // Wait for the CMS to load
         setTimeout(() => {
           const cmsContent = document.querySelector('#nc-root');
-          if (cmsContent) {
+          if (cmsContent && !document.querySelector('#saisa-publish-button')) {
             // Create publish button
             const publishButton = document.createElement('button');
+            publishButton.id = 'saisa-publish-button';
             publishButton.innerHTML = '🚀 Publish Story to Blog';
             publishButton.style.cssText = `
               position: fixed;
@@ -191,7 +226,10 @@
               publishButton.style.boxShadow = '0 4px 15px rgba(255, 165, 0, 0.3)';
             });
             
-            publishButton.addEventListener('click', () => {
+            publishButton.addEventListener('click', (event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              
               // Get current form data
               const form = document.querySelector('form');
               if (!form) {
@@ -248,7 +286,11 @@
               });
             });
             
-            document.body.appendChild(publishButton);
+            try {
+              document.body.appendChild(publishButton);
+            } catch (e) {
+              console.warn('Could not append publish button:', e);
+            }
           }
         }, 2000);
       }
@@ -258,10 +300,11 @@
       
       // Also add publish button when CMS is ready
       if (window.CMS) {
+        // Use a valid event name - preSave is a valid CMS event
         window.CMS.registerEventListener({
-          name: 'cms:ready',
+          name: 'preSave',
           handler: () => {
-            console.log('CMS is ready, adding publish button');
+            console.log('CMS pre-save event, ensuring publish button is available');
             addPublishButton();
           }
         });

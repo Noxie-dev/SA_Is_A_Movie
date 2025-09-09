@@ -41,7 +41,7 @@ collections:
       - {label: "Blog Post ID", name: "blogPostId", widget: "string", required: false, hint: "Auto-generated when posted to blog"}
       - {label: "Publish to Blog", name: "publishToBlog", widget: "boolean", default: false, hint: "Check this to publish this story to the blog immediately"}
       - {label: "Blog Status", name: "blogStatus", widget: "select", options: ["draft", "published", "archived"], default: "draft"}
-      - {label: "🚀 PUBLISH TO BLOG", name: "publishButton", widget: "string", required: false, hint: "Click the floating orange 'PUBLISH TO BLOG' button in the top-right corner to publish this story to your blog immediately!"}
+      - {label: "Publish Instructions", name: "publishInstructions", widget: "text", required: false, hint: "Click the floating orange 'PUBLISH TO BLOG' button in the top-right corner to publish this story to your blog immediately!", default: "Use the floating publish button to post this story to your blog."}
 
   # Blog Posts Collection
   - name: "blog_posts"

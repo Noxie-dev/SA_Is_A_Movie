@@ -2,7 +2,7 @@
 // AD-OPTIMIZED BLOG POST COMPONENT
 // ============================================
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useAdOptimization } from '../hooks/useAdOptimization';
 import { PrivacyConsent } from './PrivacyConsent';
 import { AdOptimizationDashboard } from './AdOptimizationDashboard';
@@ -10,6 +10,8 @@ import { AdOptimizationDashboard } from './AdOptimizationDashboard';
 export function AdOptimizedBlogPost({ postId, content, title, category }) {
   const [consentGiven, setConsentGiven] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
+  const contentRef = useRef(null);
+  const adContainersRef = useRef(new Set());
   
   const {
     placements,
@@ -31,16 +33,42 @@ export function AdOptimizedBlogPost({ postId, content, title, category }) {
     }
   }, [consentGiven, initializePlacements]);
 
+  // Cleanup function to remove ad containers
+  const cleanupAdContainers = useCallback(() => {
+    adContainersRef.current.forEach(container => {
+      if (container && container.parentNode) {
+        try {
+          container.parentNode.removeChild(container);
+        } catch (error) {
+          console.warn('Failed to remove ad container:', error);
+        }
+      }
+    });
+    adContainersRef.current.clear();
+  }, []);
+
   useEffect(() => {
+    // Cleanup previous ad containers before inserting new ones
+    cleanupAdContainers();
+    
     // Insert ad containers at optimal positions
-    if (placements.length > 0) {
+    if (placements.length > 0 && contentRef.current) {
       insertAdContainers();
     }
-  }, [placements]);
+  }, [placements, cleanupAdContainers]);
 
-  const insertAdContainers = () => {
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      cleanupAdContainers();
+    };
+  }, [cleanupAdContainers]);
+
+  const insertAdContainers = useCallback(() => {
+    if (!contentRef.current) return;
+    
     placements.forEach((placement, index) => {
-      const targetElement = document.querySelector(
+      const targetElement = contentRef.current.querySelector(
         `[data-content-position="${placement.position}"]`
       );
       
@@ -55,23 +83,32 @@ export function AdOptimizedBlogPost({ postId, content, title, category }) {
         const adUnit = createAdSenseUnit(placement.type, category);
         adContainer.innerHTML = adUnit;
         
-        targetElement.appendChild(adContainer);
+        // Store reference for cleanup
+        adContainersRef.current.add(adContainer);
         
-        // Track impression
-        trackAdImpression(`ad-${Date.now()}-${index}`, placement.type);
-        
-        // Add click tracking
-        adContainer.addEventListener('click', () => {
-          trackAdClick(`ad-${Date.now()}-${index}`, placement.type);
-        });
-        
-        // Initialize AdSense
-        if (window.adsbygoogle) {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        // Safely append to target element
+        try {
+          targetElement.appendChild(adContainer);
+          
+          // Track impression
+          trackAdImpression(`ad-${Date.now()}-${index}`, placement.type);
+          
+          // Add click tracking
+          adContainer.addEventListener('click', () => {
+            trackAdClick(`ad-${Date.now()}-${index}`, placement.type);
+          });
+          
+          // Initialize AdSense
+          if (window.adsbygoogle) {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          }
+        } catch (error) {
+          console.warn('Failed to insert ad container:', error);
+          adContainersRef.current.delete(adContainer);
         }
       }
     });
-  };
+  }, [placements, category, trackAdImpression, trackAdClick]);
 
   const createAdSenseUnit = (adType, category) => {
     // SA IS A MOVIE specific ad configurations
@@ -160,6 +197,7 @@ export function AdOptimizedBlogPost({ postId, content, title, category }) {
 
         {/* Content with ad placement markers */}
         <div 
+          ref={contentRef}
           className="blog-content"
           dangerouslySetInnerHTML={{ 
             __html: content.replace(

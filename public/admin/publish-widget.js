@@ -92,9 +92,9 @@ const publishWidgetCSS = `
 `;
 
 // Inject the CSS
-const style = document.createElement('style');
-style.textContent = publishWidgetCSS;
-document.head.appendChild(style);
+const publishStyle = document.createElement('style');
+publishStyle.textContent = publishWidgetCSS;
+document.head.appendChild(publishStyle);
 
 // Add publish functionality
 window.publishStoryToBlog = function(storyData) {

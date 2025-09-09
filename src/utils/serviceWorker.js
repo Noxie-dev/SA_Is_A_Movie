@@ -3,7 +3,8 @@ import { Workbox } from 'workbox-window';
 
 let wb;
 
-if ('serviceWorker' in navigator) {
+// Only register service worker in production
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
   wb = new Workbox('/sw.js');
 
   wb.addEventListener('controlling', () => {
@@ -22,6 +23,8 @@ if ('serviceWorker' in navigator) {
   }).catch((error) => {
     console.error('Service worker registration failed:', error);
   });
+} else if (import.meta.env.DEV) {
+  console.log('Service worker registration skipped in development mode');
 }
 
 export default wb;

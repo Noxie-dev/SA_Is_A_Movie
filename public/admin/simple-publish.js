@@ -160,9 +160,13 @@
   
   // Listen for CMS events
   if (window.CMS) {
+    // Use a valid event name - preSave is a valid CMS event
     window.CMS.registerEventListener({
-      name: 'cms:ready',
-      handler: addPublishButton
+      name: 'preSave',
+      handler: () => {
+        console.log('CMS pre-save event, ensuring publish button is available');
+        addPublishButton();
+      }
     });
   }
   
